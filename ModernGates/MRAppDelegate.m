@@ -1,54 +1,55 @@
-//
-//  MRAppDelegate.m
-//  ModernGates
-//
-//  Created by Sergey Samoylov on 09/10/13.
-//  Copyright (c) 2013 Mail.Ru. All rights reserved.
-//
-
 #import "MRAppDelegate.h"
+#import "MRViewController.h"
+#import "MRMainMenuController.h"
+#import "UINavigationController+MRNavigationBar.h"
+#import "MRProjectsDao.h"
+#import "GHRevealViewController.h"
+#import "GHRevealViewController+FastCreation.h"
+#import "MKNetworkEngine.h"
+
+void uncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+}
 
 @implementation MRAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    [MRProjectsDao.sharedInstance setup];
+    [self setupNetworkEngine];
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
+    UINavigationController *menuController = [UINavigationController controllerForViewController:[MRMainMenuController controller]];
+
+    GHRevealViewController *revealViewController= [GHRevealViewController controller];
+    revealViewController.sidebarViewController = menuController;
+
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = revealViewController;
+    self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-
+- (void)setupNetworkEngine {
+    self.networkEngine = [[MKNetworkEngine alloc] initWithHostName:@"zend.eurobriz.ru" apiPath:@"igate" customHeaderFields:nil];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // ttvvaa: пока логин не нужен
+//    MRLoginViewController *controller = [MRLoginViewController new];
+//
+//    __weak MRAppDelegate *myself = self;
+//    controller.block = ^(BOOL isSuccess, NSDictionary *dictionary) {
+//        if (isSuccess) {
+//            [MRLoginService sharedInstance].token = dictionary[@"id"] ?: @"";
+//            [myself.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+//        }
+//    };
+//
+//    [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
 }
 
 @end

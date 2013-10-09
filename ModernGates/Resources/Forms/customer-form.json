@@ -1,0 +1,39 @@
+[
+    {
+        "name":"customer",
+        "label":"Заказчик",
+        "elements":[
+            {
+                "type":"text",
+                "name":"customer.title",
+                "label":"Наименование"
+            },
+            {
+                "type":"text",
+                "name":"customer.name",
+                "label":"ФИО"
+            },
+            {
+                "type":"text",
+                "name":"customer.email",
+                "label":"E-mail"
+            },
+            {
+                "type":"text",
+                "name":"customer.home.address",
+                "label":"Адрес заказчика"
+            },
+            {
+                "type":"text",
+                "name":"customer.order.address",
+                "label":"Адрес установки"
+            },
+            {
+                "type":"text",
+                "name":"customer.description",
+                "label":"Примечание"
+            }
+        ]
+    }
+]
+

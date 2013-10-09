@@ -1,0 +1,1568 @@
+{
+	"constructorCode" : "SectionalDoorsRSD01",
+	"constructorID" : "rsd01",
+	"constructorName" : "Конфигуратор секционных ворот DoorHan RSD01",
+	"constructorImg" : "rsd01.jpg",
+	"inputBlocks" : [
+		{
+			"groupHead" : "Комплектация ворот"
+		},
+		{
+			"ID" : "0",
+			"name" : "только направляющие ворот без комплектации",
+			"type" : "checkbox",
+			"group" : "SbgrOnlyDoorGuides1",
+			"code" : "rsd01_OnlyDoorGuides",
+			"commentHover" : "Позволяет заказать только направляющие секционных ворот.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "1",
+			"name" : "только щит секционных ворот без комплектации",
+			"type" : "checkbox",
+			"group" : "SbgrOnlyDoorPanels1",
+			"code" : "rsd01_OnlyDoorPanel",
+			"commentHover" : "Позволяет заказать только щит секционных ворот.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorGuides#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Параметры проема"
+		},
+		{
+			"ID" : "3",
+			"name" : "Ширина (мм)",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_width",
+			"defaultVal" : "2000",
+			"maxVal" : "3000",
+			"minVal" : "2000",
+			"commentHover" : "Значение ширины проема должно быть не менее 2000 мм и не более 3000 мм.",
+			"activity" : "on"		},
+		{
+			"ID" : "4",
+			"name" : "Высота (мм)",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_height",
+			"defaultVal" : "1800",
+			"maxVal" : "2800",
+			"minVal" : "1800",
+			"commentHover" : "Значение высоты проема должно быть не менее 1800 мм и не более 2800 мм.",
+			"activity" : "on"		},
+		{
+			"ID" : "5",
+			"name" : "Притолока (мм)",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_lintel",
+			"defaultVal" : "100",
+			"minVal" : "100",
+			"commentHover" : "Значение притолоки должно быть не менее 100 мм.",
+			"activity" : "on"		},
+		{
+			"ID" : "6",
+			"name" : "Левый пристенок (мм)",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_lwall",
+			"defaultVal" : "100",
+			"minVal" : "100",
+			"commentHover" : "Значение левого бокового пространства должно быть не менее 100 мм.",
+			"activity" : "on"		},
+		{
+			"ID" : "7",
+			"name" : "Правый пристенок (мм)",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_rwall",
+			"defaultVal" : "100",
+			"minVal" : "100",
+			"commentHover" : "Значение правого бокового пространства должно быть не менее 100 мм.",
+			"activity" : "on"
+		},
+		{
+			"ID" : "8",
+			"name" : "Глубина помещения (мм)",
+			"type" : "text",
+			"textParamLength" : "5",
+			"code" : "rsd1_depth",
+			"defaultVal" : "6000",
+			"minVal" : "2100",
+			"commentHover" : "Минимальное значение глубины помещения - вычисляемое значение, зависит от типа подъема ворот. При текущем типе подъема значение не может быть меньше 2100 мм",
+			"activity" : "on"		},
+		{
+			"ID" : "9",
+			"name" : "Площадь полотна (м2)",
+			"type" : "number",
+			"code" : "rsd1_square",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "",
+					"goal" : "value",
+					"newval" : "#rsd1_height#*#rsd1_width#/1000000"
+				}
+			]
+		},
+		{
+			"ID" : "10",
+			"name" : "бетон",
+			"type" : "radio",
+			"group" : "SbgrMaterial1",
+			"groupName" : "Материал стен",
+			"code" : "rsd1_wallmat_1",
+			"commentHover" : "Стены помещения изготовлены из бетона.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "11",
+			"name" : "дерево",
+			"type" : "radio",
+			"group" : "SbgrMaterial1",
+			"code" : "rsd1_wallmat_4",
+			"commentHover" : "Стены помещения изготовлены из дерева.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "12",
+			"name" : "кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial1",
+			"code" : "rsd1_wallmat_3",
+			"defaultVal" : "rsd1_wallmat_3",
+			"commentHover" : "Стены помещения изготовлены из кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "13",
+			"name" : "металл",
+			"type" : "radio",
+			"group" : "SbgrMaterial1",
+			"code" : "rsd1_wallmat_2",
+			"commentHover" : "Стены помещения изготовлены из металла.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "14",
+			"name" : "пустотелый кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial1",
+			"code" : "rsd1_wallmat_8",
+			"commentHover" : "Стены помещения изготовлены из пустотелого кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "15",
+			"name" : "бетон",
+			"type" : "radio",
+			"group" : "SbgrMaterial2",
+			"groupName" : "Материал потолка",
+			"code" : "rsd1_ceilingmat_1",
+			"defaultVal" : "rsd1_ceilingmat_1",
+			"commentHover" : "Потолок помещения изготовлен из бетона.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "16",
+			"name" : "дерево",
+			"type" : "radio",
+			"group" : "SbgrMaterial2",
+			"code" : "rsd1_ceilingmat_4",
+			"commentHover" : "Потолок помещения изготовлен из дерева.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "17",
+			"name" : "кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial2",
+			"code" : "rsd1_ceilingmat_3",
+			"commentHover" : "Потолок помещения изготовлен из кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "18",
+			"name" : "металл",
+			"type" : "radio",
+			"group" : "SbgrMaterial2",
+			"code" : "rsd1_ceilingmat_2",
+			"commentHover" : "Потолок помещения изготовлен из металла.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "19",
+			"name" : "пустотелый кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial2",
+			"code" : "rsd1_ceilingmat_8",
+			"commentHover" : "Потолок помещения изготовлен из пустотелого кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "20",
+			"name" : "бетон",
+			"type" : "radio",
+			"group" : "SbgrMaterial13",
+			"groupName" : "Материал притолоки",
+			"code" : "rsd1_lintelmat_1",
+			"commentHover" : "Притолока помещения изготовлена из бетона.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "21",
+			"name" : "дерево",
+			"type" : "radio",
+			"group" : "SbgrMaterial13",
+			"code" : "rsd1_lintelmat_4",
+			"commentHover" : "Притолока помещения изготовлена из дерева.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "22",
+			"name" : "кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial13",
+			"code" : "rsd1_lintelmat_3",
+			"defaultVal" : "rsd1_lintelmat_3",
+			"commentHover" : "Притолока помещения изготовлена из кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "23",
+			"name" : "металл",
+			"type" : "radio",
+			"group" : "SbgrMaterial13",
+			"code" : "rsd1_lintelmat_2",
+			"commentHover" : "Притолока помещения изготовлена из металла.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "24",
+			"name" : "пустотелый кирпич",
+			"type" : "radio",
+			"group" : "SbgrMaterial13",
+			"code" : "rsd1_lintelmat_8",
+			"commentHover" : "Притолока помещения изготовлена из пустотелого кирпича.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd01_OnlyDoorPanel#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Параметры сендвич панелей"
+		},
+		{
+			"ID" : "26",
+			"name" : "с защитой от защемления пальцев",
+			"type" : "checkbox",
+			"group" : "SbgrSndwchPanelType1",
+			"groupName" : "Тип панелей",
+			"code" : "rsd1_pnlprotection_2",
+			"commentHover" : "Панель с защитой от защемления пальцев.",
+			"activity" : "on"		},
+		{
+			"ID" : "27",
+			"name" : "стандартный (гофра)",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"groupName" : "Дизайн с внешней стороны",
+			"code" : "rsd1_disignout_1",
+			"defaultVal" : "rsd1_disignout_1",
+			"commentHover" : "Обычный класический дизайн (стандартный) с наружней стороны панели.",
+			"activity" : "on"		},
+		{
+			"ID" : "28",
+			"name" : "гладкий лист (без зигов)",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"code" : "rsd1_disignout_6",
+			"commentHover" : "Панель без волны, центральной полосы и т.д.",
+			"activity" : "on"		},
+		{
+			"ID" : "29",
+			"name" : "с центральной полосой",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"code" : "rsd1_disignout_2",
+			"commentHover" : "Дизайн с центральной полосой с внешней стороны."		},
+		{
+			"ID" : "30",
+			"name" : "волна",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"code" : "rsd1_disignout_4",
+			"commentHover" : "Дизайн с волной и без центральной полосы с внешней стороны.",
+			"activity" : "on"		},
+		{
+			"ID" : "31",
+			"name" : "широкая полоса",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"code" : "sc_typepanel_4",
+			"commentHover" : "Панель с широкой полосой.",
+			"activity" : "on"		},
+		{
+			"ID" : "32",
+			"name" : "филенка",
+			"type" : "radio",
+			"group" : "SbgrSndwchPanelType1_1",
+			"code" : "rsd1_disignout_5",
+			"commentHover" : "Филенка с внешней стороны. Только для серии RSD01.",
+			"activity" : "on"		},
+		{
+			"ID" : "33",
+			"name" : "гладкий лист",
+			"type" : "radio",
+			"group" : "SbgrSndwchOutsideStructure1",
+			"groupName" : "Структура внешней стороны",
+			"code" : "rsd1_strshieldout_3",
+			"defaultVal" : "rsd1_strshieldout_3",
+			"commentHover" : "Внешняя поверхность панели гладкая.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_disignout_6#||#rsd1_disignout_4#||#sc_typepanel_4#||#rsd1_disignout_5#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "34",
+			"name" : "стукко (stucco)",
+			"type" : "radio",
+			"group" : "SbgrSndwchOutsideStructure1",
+			"code" : "rsd1_strshieldout_1",
+			"commentHover" : "Внешняя поверхность панели по структуре напоминает кожуру апельсина.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#sc_typepanel_4#||#rsd1_disignout_5#",
+					"goal" : "activityOff"
+				},
+				{
+					"text" : "#rsd1_disignout_6#||#rsd1_disignout_4#||#rsd1_disignout_1#",
+					"goal" : "activityOn"
+				},
+				{
+					"text" : "#rsd1_disignout_6#||#rsd1_disignout_4#",
+					"goal" : "value",
+					"newval" : "select"
+				}
+			]
+		},
+		{
+			"ID" : "35",
+			"name" : "под дерево",
+			"type" : "radio",
+			"group" : "SbgrSndwchOutsideStructure1",
+			"code" : "rsd1_strshieldout_2",
+			"commentHover" : "Внешняя сторона панели имеет структуру деревянных поверхностей.",
+			"expressions" : [
+				{
+					"text" : "#sc_typepanel_4#||#rsd1_disignout_5#",
+					"goal" : "activityOn"
+				},
+				{
+					"text" : "#sc_typepanel_4#||#rsd1_disignout_5#",
+					"goal" : "value",
+					"newval" : "select"
+				}
+			]
+		},
+		{
+			"ID" : "36",
+			"name" : "RAL 9003, белый (стандартный)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"groupName" : "Цвет с внешней стороны",
+			"code" : "rsd1_clrshieldout_1",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 9003 - белый. Стандартно поставляемый цвет.",
+			"activity" : "on"		},
+		{
+			"ID" : "37",
+			"name" : "RAL 9010, белый (стандартный)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_22",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 9010 - белый. Используется только в Чехии."		},
+		{
+			"ID" : "38",
+			"name" : "RAL 8014, коричневый (стандартный)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_2",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 8014 - коричневый. Относится к стандартным цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "39",
+			"name" : "RAL 8017, коричневый (стандартный)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_3",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 8017 - коричневый. Относится к стандартным цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "40",
+			"name" : "RAL 5005, синий (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_4",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 5005 - синий. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "41",
+			"name" : "RAL 6005, зеленый (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_5",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 6005 - зеленый. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "42",
+			"name" : "RAL 3005, бордо (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_6",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 3005 - бордо. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "43",
+			"name" : "RAL 9006, серебро (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_7",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 9006 - серебро. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "44",
+			"name" : "RAL 1014, бежевый (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_8",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 1014 - бежевый. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "45",
+			"name" : "RAL 3000, красный",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_25",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 3005 - красный.",
+			"activity" : "on"		},
+		{
+			"ID" : "46",
+			"name" : "RAL 7004, серый (базовый)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_9",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 7004 - серый. Относится к базовым цветам.",
+			"activity" : "on"		},
+		{
+			"ID" : "47",
+			"name" : "RAL 7016, антрацит (W14)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_23",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. По классификации RAL 7016 - антрацит.",
+			"activity" : "on"		},
+		{
+			"ID" : "48",
+			"name" : "зебра (W12)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_24",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - зебра.",
+			"activity" : "on"		},
+		{
+			"ID" : "49",
+			"name" : "сосна (Wood Brown)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_panelOutsideColorPine",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - сосна (Wood Brown).",
+			"activity" : "on"		},
+		{
+			"ID" : "50",
+			"name" : "клен (Maple, W3)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_10",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - клен (Maple).",
+			"activity" : "on"		},
+		{
+			"ID" : "51",
+			"name" : "вишня (Cherry, W2)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_12",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - вишня (Cherry).",
+			"activity" : "on"		},
+		{
+			"ID" : "52",
+			"name" : "орех (Walnut, W1)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_13",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - орех (Walnut)."		},
+		{
+			"ID" : "53",
+			"name" : "зеленый дуб (Green oak, W5)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_15",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - зеленый дуб  (Green oak).",
+			"activity" : "on"		},
+		{
+			"ID" : "54",
+			"name" : "золотой дуб (Golden Oak, W6)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_14",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Под дерево - золотой дуб (Golden Oak).",
+			"activity" : "on"		},
+		{
+			"ID" : "55",
+			"name" : "ольха (Alder, W9)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_16",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - ольха (Alder). Только для серии RSD02.",
+			"activity" : "on"		},
+		{
+			"ID" : "56",
+			"name" : "бук (Beech, W11)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_17",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - бук (Beech). Только для серии RSD02.",
+			"activity" : "on"		},
+		{
+			"ID" : "57",
+			"name" : "лесной орех (Forest walnut, W10)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_18",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - лесной орех (Forest walnut). Только для серии RSD02.",
+			"activity" : "on"		},
+		{
+			"ID" : "58",
+			"name" : "махагон (Mahagony, W7)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_19",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - махагон (Mahagony). Только для серии RSD02.",
+			"activity" : "on"		},
+		{
+			"ID" : "59",
+			"name" : "венге (Wenge, W8)",
+			"type" : "radio",
+			"group" : "SbgrOutSideColor1",
+			"code" : "rsd1_clrshieldout_20",
+			"commentHover" : "Цвет панели (щита) с внешней стороны - венге (Wenge). Только для серии RSD02.",
+			"activity" : "on"		},
+		{
+			"ID" : "60",
+			"name" : "Цвет по RAL",
+			"type" : "text",
+			"textParamLength" : "4",
+			"code" : "rsd1_coloroutRAL",
+			"commentHover" : "Цвет панели (щита) с внешней стороны. Цвет по системе классификации RAL.",
+			"activity" : "on"		},
+		{
+			"groupHead" : "Серия ворот"
+		},
+		{
+			"ID" : "62",
+			"name" : "RSD01",
+			"type" : "radio",
+			"group" : "SbgrSectionalDoorKind1",
+			"code" : "construct00000140241",
+			"defaultVal" : "construct00000140241",
+			"commentHover" : "Описание продукции.",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"groupHead" : "Замки и задвижки"
+		},
+		{
+			"ID" : "64",
+			"name" : "комплект замка для бытовых ворот",
+			"type" : "checkbox",
+			"group" : "SbgrLockType1",
+			"code" : "00000140073",
+			"commentHover" : "Комплект замка одностороннего для бытовых ворот.",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"groupHead" : "Ручки"
+		},
+		{
+			"ID" : "66",
+			"name" : "В составе ворот ручка облегченная",
+			"type" : "number",
+			"code" : "abc",
+			"activity" : "on"		},
+		{
+			"ID" : "67",
+			"name" : "стандартную ручку не устанавливать",
+			"type" : "checkbox",
+			"group" : "SbgrHandleType0",
+			"code" : "rsd1_donotsetdefhandle",
+			"commentHover" : "Ручку поставляемую по умолчанию не устанавливать.",
+			"activity" : "on"		},
+		{
+			"ID" : "68",
+			"name" : "установить дополнительную ручку",
+			"type" : "checkbox",
+			"group" : "SbgrHandleType031",
+			"code" : "rsd1_setaddithandle",
+			"commentHover" : "Необходимо установить дополнительную ручку (устанавливается с наценкой).",
+			"activity" : "on"		},
+		{
+			"ID" : "69",
+			"name" : "ручка облегченная",
+			"type" : "radio",
+			"group" : "SbgrHandleType1",
+			"code" : "00000100592",
+			"commentHover" : "Ручка облегченная.",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_setaddithandle#",
+					"goal" : "activityOn"
+				}
+			]
+		},
+		{
+			"ID" : "70",
+			"name" : "ручка выступающая",
+			"type" : "radio",
+			"group" : "SbgrHandleType1",
+			"code" : "00000100593",
+			"defaultVal" : "00000100593",
+			"commentHover" : "Ручка выступающая.",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_setaddithandle#",
+					"goal" : "activityOn"
+				}
+			]
+		},
+		{
+			"ID" : "71",
+			"name" : "ручка универсальная и ступенька из ПВХ",
+			"type" : "radio",
+			"group" : "SbgrHandleType1",
+			"code" : "00000100595",
+			"commentHover" : "Ручка универсальная и ступенька из ПВХ.",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_setaddithandle#",
+					"goal" : "activityOn"
+				}
+			]
+		},
+		{
+			"groupHead" : "Окна (акриловые)"
+		},
+		{
+			"ID" : "73",
+			"name" : "450х302мм, белое (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000100654",
+			"activity" : "on"		},
+		{
+			"ID" : "74",
+			"name" : "450х302мм, белое, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000102594",
+			"activity" : "on"		},
+		{
+			"ID" : "75",
+			"name" : "450х302мм, белое, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000102596",
+			"activity" : "on"		},
+		{
+			"ID" : "76",
+			"name" : "450х302мм, коричневое (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000103539",
+			"activity" : "on"		},
+		{
+			"ID" : "77",
+			"name" : "450х302мм, коричневое, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000102595",
+			"activity" : "on"		},
+		{
+			"ID" : "78",
+			"name" : "450х302мм, коричневое, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000102597",
+			"activity" : "on"		},
+		{
+			"ID" : "79",
+			"name" : "450х302мм, черное (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000141841",
+			"activity" : "on"		},
+		{
+			"ID" : "80",
+			"name" : "450х302мм, черное, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000141844",
+			"activity" : "on"		},
+		{
+			"ID" : "81",
+			"name" : "450х302мм, черное, раскладка ",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000141845",
+			"activity" : "on"		},
+		{
+			"ID" : "82",
+			"name" : "Описание размещения",
+			"type" : "textarea",
+			"code" : "rsd1_windlocdescr",
+			"commentHover" : "Вводится описание размещения выбранных окон на полотне ворот.",
+			"activity" : "on"		},
+		{
+			"groupHead" : "Предусмотреть в конструкции"
+		},
+		{
+			"ID" : "84",
+			"name" : "будущую установку потолочного (цепного) привода",
+			"type" : "checkbox",
+			"group" : "SetFutureDriveInstallation1",
+			"code" : "rsd1_futuremotorset",
+			"commentHover" : "Спланировать будущие изменения в конструкции - установку привода.",
+			"activity" : "on",
+			"expressions" : [
+				{
+					"text" : "#00000139290#||#00000126543#||#00000131197#||#00000120857#||#00000120858#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Потолочные привода"
+		},
+		{
+			"ID" : "86",
+			"name" : "SE-500 KIT(DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDrive1",
+			"code" : "00000139290",
+			"commentHover" : "Предназначен для автоматизации секционных ворот со средней и высокой интенсивностью эксплуатации.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#||#00000126543#||#00000131197#||#00000120857#||#00000120858#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "87",
+			"name" : "SE-750 KIT(DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDrive1",
+			"code" : "00000126543",
+			"commentHover" : "Предназначен для автоматизации секционных ворот со средней и высокой интенсивностью эксплуатации.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#||#00000139290#||#00000131197#||#00000120857#||#00000120858#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "88",
+			"name" : "SE-1200 KIT(DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDrive1",
+			"code" : "00000131197",
+			"commentHover" : "Предназначен для автоматизации секционных ворот со средней и высокой интенсивностью эксплуатации.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#||#00000139290#||#00000126543#||#00000120857#||#00000120858#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "89",
+			"name" : "D600 KIT (FAAC)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDrive1",
+			"code" : "00000120857",
+			"commentHover" : "Предназначен для автоматизации секционных ворот с небольшой и средней интенсивностью использования.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#||#00000139290#||#00000126543#||#00000131197#||#00000120858#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "90",
+			"name" : "D1000 KIT (FAAC)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDrive1",
+			"code" : "00000120858",
+			"commentHover" : "Предназначен для автоматизации секционных ворот с небольшой и средней интенсивностью использования.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#||#00000139290#||#00000126543#||#00000131197#||#00000120857#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Комплектация потолочных приводов"
+		},
+		{
+			"ID" : "92",
+			"name" : "комплект направляющих с цепью L=3600 (DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDriveTrack1",
+			"code" : "00000103524",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "93",
+			"name" : "комплект направляющих с цепью L=4600 (DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDriveTrack1",
+			"code" : "00000130190",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "94",
+			"name" : "комплект направляющих FAAC (высота 3700 мм)",
+			"type" : "checkbox",
+			"group" : "SbgrChainDriveTrack1",
+			"code" : "00000117265",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Устройства безопасности"
+		},
+		{
+			"ID" : "96",
+			"name" : "фотоэлементы (передатчик, приемник) DoorHan",
+			"type" : "checkbox",
+			"group" : "SbgrProtectDevice1",
+			"code" : "00000139366",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "97",
+			"name" : "фотоэлементы (передатчик, приемник) FAAC",
+			"type" : "checkbox",
+			"group" : "SbgrProtectDevice1",
+			"code" : "00000100575",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "98",
+			"name" : "лампа сигнальная с антенной (DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrProtectDevice1",
+			"code" : "00000112966",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "99",
+			"name" : "лампа сигнальная (FAAC)",
+			"type" : "checkbox",
+			"group" : "SbgrProtectDevice1",
+			"code" : "00000100574",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "100",
+			"name" : "комплект оптосенсоров FAAC, GFA",
+			"type" : "checkbox",
+			"group" : "SbgrProtectDevice1",
+			"code" : "00000120846",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Устройства управления"
+		},
+		{
+			"ID" : "102",
+			"name" : "кнопочная панель радиоуправления DoorHan (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000104404",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "103",
+			"name" : "2-х канальный пульт 868МГЦ, обучаемый (FAAC) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000137048",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "104",
+			"name" : "4-х канальный пульт 868МГЦ, обучаемый (FAAC) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000137049",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "105",
+			"name" : "приемник со встроенной антенной 868МГЦ (FAAC)",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice4",
+			"code" : "00000100572",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "106",
+			"name" : "4-х канальный пульт 433МГЦ (DoorHan) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000107003",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "107",
+			"name" : "приемник внешний, 2-х канальный (DoorHan)",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice6",
+			"code" : "00000117356",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "108",
+			"name" : "удлинитель тяги цепного привода DoorHan (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000110873",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "109",
+			"name" : "внешний расцепитель (DoorHan) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000103521",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "110",
+			"name" : "внешний расцепитель новый (DoorHan) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000134309",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "111",
+			"name" : "ключ-выключатель, накладной (FAAC) (шт)",
+			"type" : "text",
+			"textParamLength" : "2",
+			"code" : "00000100573",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "112",
+			"name" : "приемник внешний, в корпусе (FAAC)",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice11",
+			"code" : "00000126562",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "113",
+			"name" : "выключатель клавишный для приводов D1000, D600",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice12",
+			"code" : "00000130778",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "114",
+			"name" : "комплект датчика открытой калитки",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice13",
+			"code" : "00000121034",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"ID" : "115",
+			"name" : "блок управления приводом через телефон",
+			"type" : "checkbox",
+			"group" : "SbgrControlDevice14",
+			"code" : "00000134225",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on",
+			"expressions" : [
+				{
+					"text" : "#rsd1_futuremotorset#",
+					"goal" : "activityOff"
+				}
+			]
+		},
+		{
+			"groupHead" : "Дополнительная комплектация"
+		},
+		{
+			"ID" : "117",
+			"name" : "Решетка вентиляционная переточная АБС 490х91 белая (шт)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000136289",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "118",
+			"name" : "установочный профиль 32х32х2мм, L=3060мм (шт)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000000171",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "119",
+			"name" : "фальшпанель из металлического листа 1мм, высота (мм)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "rsd1_heightmetallfp",
+			"commentHover" : "Для указания количества ...",
+			"activity" : "on"		},
+		{
+			"ID" : "120",
+			"name" : "ширина (мм)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "rsd1_widthmetallfp",
+			"commentHover" : "Для указания количества ...",
+			"activity" : "on"		},
+		{
+			"ID" : "121",
+			"name" : "фальшпанель из панелей DoorHan высота (мм)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "rsd1_heightdoorhanpanel",
+			"commentHover" : "Для указания количества ...",
+			"activity" : "on"		},
+		{
+			"ID" : "122",
+			"name" : "ширина (мм)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "rsd1_widthdoorhanpanel",
+			"commentHover" : "Для указания количества ...",
+			"activity" : "on"		},
+		{
+			"ID" : "123",
+			"name" : "окантовка проема вертикальная (м)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000011671",
+			"activity" : "on"		},
+		{
+			"ID" : "124",
+			"name" : "окантовка проема горизонтальная (м)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000011672",
+			"activity" : "on"		},
+		{
+			"ID" : "125",
+			"name" : "поперечная балка",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000011673",
+			"activity" : "on"		},
+		{
+			"ID" : "126",
+			"name" : "установка внешнего уплотнителя",
+			"type" : "checkbox",
+			"group" : "SbgrAdditionalComplectstion7",
+			"code" : "00000137446",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "127",
+			"name" : "установка термопакета",
+			"type" : "checkbox",
+			"group" : "SbgrAdditionalComplectstion7",
+			"code" : "00000136014",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"groupHead" : "Расходные материалы"
+		},
+		{
+			"ID" : "129",
+			"name" : "кабель 2х0,75 ШВВП (2-жильный управления) (м)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000001063",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "130",
+			"name" : "кабель 3х0,75 ШВВП (3-жильный силовой) (м)",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000001143",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "131",
+			"name" : "гофра пластиковая с креплением",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "00000011882",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "132",
+			"name" : "гофра металическая с креплением",
+			"type" : "text",
+			"textParamLength" : "8",
+			"code" : "0000001188",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "133",
+			"name" : "болты анкерные 12х120мм клиновые (шт)",
+			"type" : "text",
+			"textParamLength" : "3",
+			"code" : "00000013035",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"ID" : "134",
+			"name" : "комплект установочный электропривода",
+			"type" : "checkbox",
+			"group" : "SbgrInstallationMaterials6",
+			"code" : "00000118864",
+			"commentHover" : "Описание изделия.",
+			"activity" : "on",
+			"isProduct" : "on"		},
+		{
+			"groupHead" : "Упаковка изделия"
+		},
+		{
+			"ID" : "136",
+			"name" : "пенопласт",
+			"type" : "checkbox",
+			"group" : "SbgrPack1",
+			"code" : "rsd1_packing_1",
+			"commentHover" : "Упаковка изделия с использованием пенопласта.",
+			"activity" : "on"		},
+		{
+			"ID" : "137",
+			"name" : "дерево",
+			"type" : "checkbox",
+			"group" : "SbgrPack1",
+			"code" : "rsd1_packing_2",
+			"commentHover" : "Упаковка изделия с использованием дерева.",
+			"activity" : "on"		},
+		{
+			"ID" : "138",
+			"name" : "картон",
+			"type" : "checkbox",
+			"group" : "SbgrPack1",
+			"code" : "rsd1_packing_3",
+			"commentHover" : "Упаковка изделия с использованием картона.",
+			"activity" : "on"		},
+		{
+			"groupHead" : "Примечание"
+		},
+		{
+			"ID" : "140",
+			"type" : "textarea",
+			"code" : "rsd1_comment",
+			"commentHover" : "Ваши коментарии по изделию.",
+			"activity" : "on"		}
+	],
+	"products" : [
+		{
+			"code" : "00000140385",
+			"name" : "щит SCH333",
+			"expression" : "!#rsd01_OnlyDoorGuides#&&!#rsd01_OnlyDoorPanel#"
+		},
+		{
+			"code" : "00000140241",
+			"name" : "Полная комплектация",
+			"expression" : "!#rsd01_OnlyDoorGuides#&&!#rsd01_OnlyDoorPanel#"
+		},
+		{
+			"code" : "00000125505",
+			"name" : "Только щит ворот",
+			"expression" : "#rsd01_OnlyDoorPanel#"
+		},
+		{
+			"code" : "00000125506",
+			"name" : "Только направляющие",
+			"expression" : "#rsd01_OnlyDoorGuides#"
+		},
+		{
+			"code" : "00000124963",
+			"name" : "наценка за golden oak",
+			"expression" : "#rsd1_clrshieldout_14#"
+		},
+		{
+			"code" : "00000124964",
+			"name" : "наценка за green oak",
+			"expression" : "#rsd1_clrshieldout_15#"
+		},
+		{
+			"code" : "00000138171",
+			"name" : "наценка за Alder",
+			"expression" : "#rsd1_clrshieldout_16#"
+		},
+		{
+			"code" : "00000138173",
+			"name" : "наценка за Beech",
+			"expression" : "#rsd1_clrshieldout_17#"
+		},
+		{
+			"code" : "00000138174",
+			"name" : "наценка за Forest walnut",
+			"expression" : "#rsd1_clrshieldout_18#"
+		},
+		{
+			"code" : "00000138175",
+			"name" : "наценка за Mahagony",
+			"expression" : "#rsd1_clrshieldout_19#"
+		},
+		{
+			"code" : "00000138176",
+			"name" : "наценка за Wenge",
+			"expression" : "#rsd1_clrshieldout_20#"
+		},
+		{
+			"code" : "00000015628",
+			"name" : "наценка за 5005, 6005, 3005, 9006 2024, 7004",
+			"expression" : "#rsd1_clrshieldout_4# || #rsd1_clrshieldout_5# || #rsd1_clrshieldout_6# || #rsd1_clrshieldout_7# || #rsd1_clrshieldout_9# || #rsd1_clrshieldout_8#"
+		},
+		{
+			"code" : "00000104641",
+			"name" : "наценка за покраску под дерево",
+			"expression" : "#rsd1_clrshieldout_12# || #rsd1_clrshieldout_13# || #rsd1_clrshieldout_24# || #rsd1_panelOutsideColorPine# || #rsd1_clrshieldout_10#"
+		},
+		{
+			"code" : "00000011685",
+			"name" : "наценка за индивидуальный цвет",
+			"expression" : "#rsd1_coloroutRAL#",
+			"expressionValue" : "#rsd1_width# * #rsd1_height# /1000000"
+		},
+		{
+			"code" : "00000015594",
+			"name" : "Наценка за фальшпанель металический 1мм",
+			"expression" : "#rsd1_heightmetallfp#&&#rsd1_widthmetallfp#",
+			"expressionValue" : "#rsd1_heightmetallfp#*#rsd1_widthmetallfp# /1000000"
+		},
+		{
+			"code" : "00000128991",
+			"name" : "Наценка за фальшпанель из сэндвич панелей DoorHan",
+			"expression" : "#rsd1_heightdoorhanpanel#&&#rsd1_widthdoorhanpanel#",
+			"expressionValue" : "#rsd1_heightdoorhanpanel#*#rsd1_widthdoorhanpanel# /1000000"
+		},
+		{
+			"code" : "00000101399",
+			"name" : "наценка за стуктуру под дерево",
+			"expression" : "!#rsd1_disignout_5#&&#rsd1_strshieldout_2#&&false"
+		},
+		{
+			"code" : "00000016097",
+			"name" : "наценка за упаковку в дерево",
+			"expression" : "#rsd1_packing_2#"
+		}
+	]
+}

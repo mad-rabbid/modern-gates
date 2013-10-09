@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MRCalculation" representedClassName="MRCalculation" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="priceDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="project" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MRProject" inverseName="calculations" inverseEntity="MRProject" syncable="YES"/>
+    </entity>
+    <entity name="MRCustomer" representedClassName="MRCustomer" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MRProject" inverseName="customer" inverseEntity="MRProject" syncable="YES"/>
+    </entity>
+    <entity name="MRPhoto" representedClassName="MRPhoto" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="project" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MRProject" inverseName="photos" inverseEntity="MRProject" syncable="YES"/>
+    </entity>
+    <entity name="MRProject" representedClassName="MRProject" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="factoryDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="factoryId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="factoryStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orderAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orderDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orderLatitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="orderLongitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="orderTitle" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="payedAmount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="type" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="calculations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MRCalculation" inverseName="project" inverseEntity="MRCalculation" syncable="YES"/>
+        <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MRCustomer" inverseName="projects" inverseEntity="MRCustomer" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MRPhoto" inverseName="project" inverseEntity="MRPhoto" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MRCalculation" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="MRCustomer" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="MRPhoto" positionX="88" positionY="-18" width="128" height="75"/>
+        <element name="MRProject" positionX="-144" positionY="-18" width="128" height="270"/>
+    </elements>
+</model>

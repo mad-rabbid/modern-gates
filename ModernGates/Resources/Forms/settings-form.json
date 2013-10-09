@@ -1,0 +1,43 @@
+[
+    {
+        "name":"calculation",
+        "label":"Параметры расчета",
+        "elements":[
+            {
+                "type":"number",
+                "name":"gates.settings.dealer",
+                "label":"Дилерская скидка, %",
+                "regexp":"\\d{1,2}",
+                "value":"7"
+            },
+            {
+                "type":"number",
+                "name":"gates.settings.season",
+                "label":"Дополнительная сезонная скидка, %",
+                "regexp":"\\d{1,2}",
+                "value":"5"
+            },
+            {
+                "type":"number",
+                "name":"gates.settings.fee",
+                "label":"Розничная наценка, %",
+                "regexp":"\\d{1,2}",
+                "value":"15"
+            },
+            {
+                "type":"number",
+                "name":"gates.settings.transport",
+                "label":"Транспортная наценка, %",
+                "regexp":"\\d{1,2}",
+                "value":"3"
+            },
+            {
+                "type":"text",
+                "name":"gates.settings.email",
+                "label":"Email для приема заказов",
+                "value":"user@yandex.ru"
+            }
+        ]
+    }
+]
+

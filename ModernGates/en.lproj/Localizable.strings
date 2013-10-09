@@ -1,0 +1,106 @@
+"Dismiss" = "Dismiss";
+"E-mail" = "E-mail";
+"Failed to logout." = "Failed to logout.";
+"Go to Email Preferences in the application and re-enter your username and password." = "Go to Email Preferences in the application and re-enter your username and password.";
+"ID заказа" = "Order ID";
+"Invalid username or password." = "Invalid username or password.";
+"label" = "label";
+"name" = "name";
+"Not set" = "Not set";
+"Please re-enter the To: address." = "Please re-enter the To: address.";
+"Relay rejected." = "Relay rejected.";
+"The connection to the server was interrupted." = "The connection to the server was interrupted.";
+"Timeout sending message." = "Timeout sending message.";
+"To address rejected." = "To address rejected.";
+"Try sending your message again later." = "Try sending your message again later.";
+"Unable to connect to the server." = "Unable to connect to the server.";
+"Unable To Fetch User Location" = "Unable To Fetch User Location";
+"Unsupported login mechanism." = "Unsupported login mechanism.";
+"Yett.Gates.iOS Order" = "Yett.Gates.iOS Order";
+"Your server probably requires a username and password." = "Your server probably requires a username and password.";
+"Your server's security setup is not supported, please contact your system administrator or use a supported email account like MobileMe." = "Your server's security setup is not supported, please contact your system administrator or use a supported email account like MobileMe.";
+
+
+"Адрес" = "Address";
+"Адрес объекта" = "Object address";
+"Выполняется расчет стоимости..." = "Calculating the payment amount...";
+"Выполняется расчет..." = "Calculating...";
+"Главное меню" = "Main Menu";
+"Готово" = "Done";
+"Далее" = "Next";
+"Данные расчета загружены." = "Calculation data has been loaded.";
+"Дата заказа" = "Order date";
+"Дата прайса" = "Price date";
+"Дата расчета" = "Calculation date";
+"Детализация расчета" = "Calculation details";
+"Загрузка данных расчета..." = "Calculation data is loading...";
+"Заказ" = "Order";
+"Закрыть" = "Close";
+"Изменить" = "Edit";
+
+"Создать" = "Create";
+"Информация" = "Infirmation";
+"Материалы" = "Meterials";
+"Назад" = "Back";
+"Наименование" = "Title";
+
+"Настройки" = "Settings";
+"Не задана форма или тип проекта" = "A project form and type are not set";
+"Невозможно загрузить справочник проекта" = "Can't load a project dictionary";
+
+"Неизвестный тип элемента '%@'" = "An unknown element type detected '%@'";
+"Неизвестный тип элемента селектора '%@'" = "An unknown element selector type detected '%@'";
+
+"Новый" = "New";
+"Новый заказчик" = "New customer";
+"Новый проект" = "New project";
+
+"Отправить" = "Send";
+"Отправить заказ по электронной почте?" = "Would you like to send order data by e-mail?";
+"Отправка заказа" = "Sending an order";
+"Ошибка" = "Error";
+
+"Ошибка при выполнении расчета" = "Calculation failed.";
+
+"Проекты" = "Projects";
+"Расчет выполнен" = "Calculation completed";
+"Редактирование карточки Заказчика" = "Edit customer card";
+
+"Результат расчета" = "Calculation results";
+"Результат: %@" = "Result is: %@";
+"у.е." = "EUR";
+
+"Сезонная цена, у.е." = "Season price, EUR";
+"Сообщение успешно отправлено" = "The message has been sent.";
+"Сохранить" = "Save";
+"Статус заказа" = "Order status";
+"Статус расчета" = "Calculation status";
+
+"Телефон" = "Phone";
+"Тип элемента не задан" = "Unknown element type";
+"Установки" = "Settings";
+
+"ФИО" = "Full name";
+"Цена для дилера, у.е." = "Dealer price, EUR";
+"Цена для пользователя, у.е." = "End-user price, EUR";
+
+"Заказчик" = "Customer";
+"Проект" = "Project";
+"Фотографии" = "Photos";
+"Карта" = "Location";
+"Расчеты" = "Calculations";
+"Статус" = "Status";
+
+"Данные" = "Data";
+"Заказ" = "Order";
+
+"Добавить фото" = "Add a photo";
+"Параметры расчета" = "Calculation settings";
+"Дилерская скидка, %" = "Dealer discount, %";
+"Дополнительная сезонная скидка, %" = "Season discount, %";
+"Розничная наценка, %" = "Mark-up, %";
+"Email для приема заказов" = "E-mail";
+
+"Ворота YETT" = "YETT Gates";
+"Форма" = "Form source";
+"Прайс" = "Price source";

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Project Map View Controller-->
+        <scene sceneID="Urx-HH-qHG">
+            <objects>
+                <viewController storyboardIdentifier="MRProjectMapViewController" id="Fic-7A-S1M" customClass="MRProjectMapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BIm-J1-ojI">
+                        <rect key="frame" x="0.0" y="20" width="560" height="576"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="LKx-YO-b1R" customClass="YMKMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="560" height="576"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CcB-7j-cre">
+                                <rect key="frame" x="495" y="500" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="OnScreenButton.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="OnScreenButtonHighlighted.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="locateMeButtonTapped:" destination="Fic-7A-S1M" eventType="touchUpInside" id="0yC-1i-zt5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uLn-ay-CEc">
+                                <rect key="frame" x="495" y="220" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="ZoomMinus.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="ZoomMinusHighlighted.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoomMinusButtonTapped:" destination="Fic-7A-S1M" eventType="touchUpInside" id="Luq-IJ-feb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4ss-5e-VXt">
+                                <rect key="frame" x="495" y="280" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="ZoomPlus.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="ZoomPlusHighlighted.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoomPlusButtonTapped:" destination="Fic-7A-S1M" eventType="touchUpInside" id="vc1-4P-csC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="_activityIndicator" destination="3pj-gx-ieG" id="wLU-dM-0Ku"/>
+                        <outlet property="_locateMeButton" destination="CcB-7j-cre" id="iPj-Yc-0fe"/>
+                        <outlet property="_locationFetcher" destination="qeC-dW-NhF" id="gha-uv-MO8"/>
+                        <outlet property="_mapView" destination="LKx-YO-b1R" id="Ogg-Vx-ai1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7E-gu-msc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="qeC-dW-NhF" customClass="YMKLocationFetcher">
+                    <connections>
+                        <outlet property="delegate" destination="Fic-7A-S1M" id="oSY-r8-WTH"/>
+                        <outlet property="mapView" destination="LKx-YO-b1R" id="RjY-IA-wM8"/>
+                    </connections>
+                </customObject>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" id="3pj-gx-ieG">
+                    <rect key="frame" x="9" y="9" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
+            </objects>
+            <point key="canvasLocation" x="123" y="-56"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="OnScreenButton.png" width="45" height="45"/>
+        <image name="OnScreenButtonHighlighted.png" width="45" height="45"/>
+        <image name="ZoomMinus.png" width="45" height="45"/>
+        <image name="ZoomMinusHighlighted.png" width="45" height="45"/>
+        <image name="ZoomPlus.png" width="45" height="45"/>
+        <image name="ZoomPlusHighlighted.png" width="45" height="45"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
