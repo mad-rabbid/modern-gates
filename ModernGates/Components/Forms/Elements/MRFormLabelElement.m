@@ -8,5 +8,7 @@
     return @"MRFormLabelCell";
 }
 
+- (void)updateValue:(NSString *)value {
+}
 
 @end

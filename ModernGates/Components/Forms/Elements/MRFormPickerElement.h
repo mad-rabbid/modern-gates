@@ -1,14 +1,10 @@
 #import "MRFormEditableElement.h"
-#import "MRFormPickerParser.h"
 
 @interface MRFormPickerElement : MRFormEditableElement
 
-@property (nonatomic, strong) NSArray *source;
 @property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) NSArray *selectedIndices;
-@property (nonatomic, strong) id<MRFormPickerParser> valueParser;
+@property (nonatomic, assign) NSInteger selectedIndex;
 
-- (id)initWithItems:(NSArray *)items value:(NSString *)value;
-
-
+- (NSString *)labelForItemAtIndex:(NSInteger)index;
+- (NSString *)valueForItemAtIndex:(NSInteger)index;
 @end

@@ -1,11 +1,10 @@
 #import "MREngineFormHolder.h"
 #import "JSONKit.h"
 #import "MRForm.h"
-#import "MRFormSection.h"
-#import "MRFormLabelElement.h"
-#import "MRFormBooleanElement.h"
+#import "MRModernEngineFormParser.h"
+#import "MRFormRowElement.h"
 
-@interface MREngineFormHolder ()
+@interface MREngineFormHolder () <MRFormElementDelegate>
 @property (nonatomic, strong) NSDictionary *source;
 
 @property (nonatomic, strong) MRForm *form;
@@ -31,6 +30,17 @@
 
     NSString *jsonString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.source = [jsonString objectFromJSONString];
+
+    MRModernEngineFormParser *parser = [[MRModernEngineFormParser alloc] initWithDictionary:self.source];
+    parser.delegate = self;
+    [parser parse];
+    self.form = parser.form;
+}
+
+- (void)valueChangedForElement:(MRFormRowElement *)element {
+    if (self.delegate) {
+        [self.delegate valueChangedForElement:element];
+    }
 }
 
 @end

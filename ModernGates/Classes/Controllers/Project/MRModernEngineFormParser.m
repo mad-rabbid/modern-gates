@@ -12,9 +12,10 @@
 
 @property (nonatomic, strong) MRForm *form;
 @property (nonatomic, strong) NSMutableDictionary *elements;
-@property (nonatomic, strong) NSMutableArray *errors;
 
 @property (nonatomic, strong) MRFormPickerElement *picker;
+@property (nonatomic, strong) NSMutableArray *items;
+
 @end
 
 @implementation MRModernEngineFormParser {
@@ -24,26 +25,13 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
-        self.source = [dictionary copy];
+        self.source = dictionary;
     }
     return self;
 }
 
-
-- (NSDictionary *)formElements {
-    return [NSDictionary dictionaryWithDictionary:self.elements];
-}
-
-- (NSArray *)parseErrors {
-    return [NSArray arrayWithArray:self.errors];
-}
-
-- (BOOL)parse {
+- (void)parse {
     self.form = [MRForm new];
-
-    self.elements = [NSMutableDictionary dictionary];
-    self.errors = [NSMutableArray array];
-
 
     MRFormSection *currentSection = nil;
     for (NSDictionary *dictionary in self.source[@"inputBlocks"]) {
@@ -56,12 +44,12 @@
             if (!currentSection) {
                 currentSection = [MRFormSection new];
             }
+            [self parseElementWithDictionary:dictionary section:currentSection];
         }
 
     }
 
     [self addSection:currentSection toForm:self.form];
-    return !self.errors.count;
 }
 
 - (void)addSection:(MRFormSection *)section toForm:(MRForm *)form {
@@ -73,13 +61,12 @@
 - (void)parseElementWithDictionary:(NSDictionary *)dictionary section:(MRFormSection *)section {
     NSString *type = dictionary[@"type"];
     if (!type.length) {
-
-        [self.errors addObject:NSLocalizedString(@"Тип элемента не задан", nil)];
-
+        MRLog(@"Тип элемента не задан: %@", dictionary);
         return;
     }
 
     if (self.picker && (![type isEqualToString:@"radio"] || ![dictionary[@"groupName"] isEqual:self.picker.fetchKey])) {
+        [section addElement:self.picker];
         self.picker = nil;
     }
 
@@ -87,7 +74,7 @@
     if ([type isEqualToString:@"number"]) {
         row = [self numberElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"radio"]) {
-        row = [self pickerElementWithDictionary:dictionary];
+        [self parsePickerElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"checkbox"]) {
         row = [self booleanElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"text"]) {
@@ -95,43 +82,12 @@
     } else if ([type isEqualToString:@"info"]) {
         row = [self labelElementWithDictionary:dictionary];
     } else {
-        [self.errors addObject:[NSString stringWithFormat:NSLocalizedString(@"Неизвестный тип элемента '%@'", nil), type]];
+        MRLog(@"Неизвестный тип элемента '%@', %@", type, dictionary);
     }
 
     if (row) {
         [section addElement:row];
     }
-}
-
-- (void)updateValuesFromFormSection:(MRFormSection *)section dictionary:(NSDictionary *)dictionary {
-    [section.elements enumerateObjectsUsingBlock:^(MRFormLabelElement *labelElement, NSUInteger idx, BOOL *stop) {
-        NSString *key = labelElement.fetchKey;
-        __block NSString *value = nil;
-        if ([labelElement isMemberOfClass:MRFormNumberElement.class]) {
-            value = [((MRFormNumberElement *) labelElement).number stringValue];
-        } else if ([labelElement isMemberOfClass:MRFormEditableElement.class]) {
-            value = ((MRFormEditableElement *) labelElement).text;
-        } else if ([labelElement isMemberOfClass:MRFormPickerElement.class]) {
-            MRFormPickerElement *picker = ((MRFormPickerElement *) labelElement);
-            if (picker.selectedIndices.count) {
-                MRLog(@"Picker %@ value %@ !!!", key, picker.selectedIndices[0]);
-
-                [picker.source enumerateObjectsUsingBlock:^(NSDictionary *current, NSUInteger idx1, BOOL *stop1) {
-                    if ([current[@"label"] isEqualToString:picker.text]) {
-                        value = current[@"value"];
-                        *stop1 = YES;
-                    }
-                }];
-            }
-        } else if ([labelElement isMemberOfClass:MRFormBooleanElement.class]) {
-            value = ((MRFormBooleanElement *) labelElement).isOn ? @"true" : @"false";
-        } else {
-            return;
-        }
-
-        NSLog(@"key: %@, value: %@", key, value);
-        dictionary[key][@"value"] = value.length ? value : @"";
-    }];
 }
 
 - (MRFormNumberElement *)numberElementWithDictionary:(NSDictionary *)source {
@@ -145,7 +101,7 @@
     MRFormLabelInfoElement *element = [MRFormLabelInfoElement new];
     [self setupElement:element source:source];
     NSString *value = source[@"value"];
-    element.info = value ? value : @"";
+    element.info = value ?: @"";
     return element;
 }
 
@@ -157,45 +113,31 @@
     return element;
 }
 
-- (MRFormPickerElement *)pickerElementWithDictionary:(NSDictionary *)source {
-    NSArray *items = nil;
-    if ([source[@"items"] isKindOfClass:NSString.class]) {
-        NSDictionary *dictionary = nil;//_settings[@"dictionaries"];
-        if (dictionary.count) {
-            NSArray *commonItems = dictionary[source[@"items"]];
-            if ([commonItems isKindOfClass:NSArray.class]) {
-                items = commonItems;
-            }
-        }
-    } else if ([source[@"items"] isKindOfClass:NSArray.class]) {
-        items = source[@"items"];
+- (void)parsePickerElementWithDictionary:(NSDictionary *)source {
+    if (!self.picker) {
+        self.picker = [[MRFormPickerElement alloc] init];
+        [self setupElement:self.picker source:source delegate:_delegate];
+        self.picker.label = source[@"groupName"] ?: NSLocalizedString(@"Not set", nil);
+        self.picker.fetchKey = source[@"group"];
+        self.picker.groupKey = self.picker.fetchKey;
+        self.items = [NSMutableArray array];
     }
 
-    MRLog(@"Picker %@ value %@", source[@"name"], source[@"value"]);
-
-    __block NSString *value = source[@"value"];
-
-    NSMutableArray *textItems = nil;
-    if (items) {
-        textItems = [NSMutableArray arrayWithCapacity:items.count];
-        [items enumerateObjectsUsingBlock:^(NSDictionary *current, NSUInteger idx, BOOL *stop) {
-            NSString *label = NSLocalizedString(current[@"label"], nil);
-            [textItems addObject:label];
-            if (value.length && [current[@"value"] isEqualToString:value]) {
-                value = label;
-            }
-        }];
-    } else {
-        value = nil;
+    NSMutableDictionary *item = [NSMutableDictionary dictionary];
+    if (source[@"name"]) {
+        item[@"label"] = source[@"name"];
     }
 
-    MRFormPickerElement *element = [[MRFormPickerElement alloc] initWithItems:(textItems ? @[textItems] : @[]) value:value];
-    element.source = items;
+    if (source[@"code"]) {
+        item[@"value"] = source[@"code"];
+    }
 
-    [self setupElement:element source:source delegate:_delegate];
+    if (source[@"commentHover"]) {
+        item[@"comment"] = source[@"commentHover"];
+    }
 
-
-    return element;
+    item[@"expressions"] = [source[@"expressions"] copy];
+    [self.items addObject:item];
 }
 
 - (MRFormBooleanElement *)booleanElementWithDictionary:(NSDictionary *)source {
@@ -225,9 +167,15 @@
     element.label = NSLocalizedString(element.label, nil);
 
     element.fetchKey = source[@"code"];
+    element.groupKey = source[@"group"];
+
     element.delegate = delegate;
     element.disabled = ![[source[@"activity"] lowercaseString] isEqualToString:@"on"];
     element.hidden = [self parseBoolean:source[@"hidden"]];
+
+    if (![source[@"type"] isEqualToString:@"radio"]) {
+        element.expressions = [source[@"expressions"] copy];
+    }
 }
 
 @end

@@ -1,24 +1,25 @@
-#import <QuartzCore/QuartzCore.h>
 #import "MRSettingsViewController.h"
 #import "MRFormTableView.h"
-#import "MRStoryboardLocator.h"
-#import "UIViewController+MRTitleView.h"
 #import "MRAbstractCell.h"
 #import "MRMainMenuCell.h"
-#import "MRFormHelper.h"
 #import "MRForm.h"
 #import "MRJSONHelper.h"
 #import "UIView+MRDottedBackground.h"
 #import "MRMainMenuHeader.h"
-#import "MagicalRecord.h"
+#import "MRFormHelper.h"
+#import "MRStoryboardLocator.h"
+#import "MRFormSection.h"
+#import "MRFormLabelElement.h"
+#import "UIViewController+MRTitleView.h"
 
 #define kSettingsFormFile @"settings-form.json"
 
 @implementation MRSettingsViewController {
     __weak IBOutlet UITableView *_projectTableView;
     __weak IBOutlet MRFormTableView *_formTableView;
-    __strong NSDictionary *_currentFormElements;
-    __strong NSArray *_form;
+
+    __strong MRForm *_form;
+    __strong NSMutableDictionary *_defaultValues;
     NSUInteger _selectedSection;
 }
 
@@ -36,70 +37,64 @@
 }
 
 - (void)didSaveButtonTouch:(id)sender {
-    [self updateDataFromTableView];
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
-    [self.currentElements enumerateObjectsUsingBlock:^(NSDictionary *element, NSUInteger idx, BOOL *stop) {
-        NSString *value = element[@"value"];
-        if (!value.length) {
-            return;
-        }
+    // TODO: Validate form
 
-        NSString *name = element[@"name"];
-        NSString *pattern = element[@"regexp"];
-        if (pattern.length) {
-            NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
-            if (expression && ![expression numberOfMatchesInString:value options:0 range:NSMakeRange(0, value.length)]) {
-                MRLog(@"Bad value %@ was detected for element with name %@", value, name);
-                return;
-            }
-        }
-
-        [settings setObject:value forKey:name];
+    NSMutableDictionary *values = [NSMutableDictionary dictionary];
+    [_form fetchValueIntoObject:values];
+    [values enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+        [settings setObject:value forKey:key];
     }];
-
     [settings synchronize];
 }
 
 - (void)setupFromSettings {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    [self.currentElements enumerateObjectsUsingBlock:^(NSMutableDictionary *element, NSUInteger idx, BOOL *stop) {
-        NSString *name = element[@"name"];
-        NSString *value = [settings objectForKey:name];
-        if (value && [value isKindOfClass:NSString.class] && value.length) {
-            element[@"value"] = value;
-        } else {
-            value = element[@"value"];
-            if (value && [value isKindOfClass:NSString.class] && value.length) {
-                [settings setObject:value forKey:name];
-                [settings synchronize];
-            }
+    [_form enumerateElementsWithBlock:^BOOL(MRFormSection *section, MRFormLabelElement *element) {
+        NSString *value = [settings objectForKey:element.fetchKey];
+        if (![value isKindOfClass:NSString.class]) {
+            value = _defaultValues[element.fetchKey] ?: @"";
         }
+        [settings setObject:value forKey:element.fetchKey];
+        [settings synchronize];
+
+        [element updateValue:value];
+        return NO;
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _form = [[MRJSONHelper objectFromJsonFile:kSettingsFormFile bundle:nil] mutableCopy];
+    NSArray *data = [MRJSONHelper objectFromJsonFile:kSettingsFormFile bundle:nil];
+
+    MRFormHelper *formHelper = [MRFormHelper helperWithSections:data delegate:self];
+    _form = [formHelper parse];
+    _formTableView.form =_form;
 
     [self setupFromSettings];
-    _formTableView.form = self.formData;
+    [self updateDefaultValuesWithSections:data];
 
     [_projectTableView reloadData];
-    if (_form.count) {
-        [_projectTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection: _selectedSection]
-                                     animated:NO
-                               scrollPosition:UITableViewScrollPositionTop];
-        [self showSettingsSection:_selectedSection];
-    }
+    [_projectTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection: _selectedSection]
+                                 animated:NO
+                           scrollPosition:UITableViewScrollPositionTop];
+    [self showSettingsSection:_selectedSection];
+}
 
+- (void)updateDefaultValuesWithSections:(NSArray *)sections {
+    for (NSDictionary *section in sections) {
+        for (NSDictionary *element in section[@"elements"]) {
+            NSString *value = element[@"value"] ? [element[@"value"] description] : nil;
+            if (value) {
+                _defaultValues[element[@"name"]] = value;
+            }
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
-    [self updateDataFromTableView];
-
     [self didSaveButtonTouch:nil];
 }
 
@@ -108,12 +103,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _form.count;
+    return [_form.sections count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MRMainMenuCell *cell = [MRMainMenuCell cellForTableView:tableView];
-    cell.title = NSLocalizedString(_form[indexPath.row][@"label"], nil);
+    cell.title = NSLocalizedString([_form.sections[indexPath.section] title], nil);
     return cell;
 }
 
@@ -135,22 +130,8 @@
 }
 
 - (void)showSettingsSection:(NSInteger)section {
-    [self updateNavigationTitle:_form[section][@"label"]];
+    [self updateNavigationTitle:[_form.sections[section] title]];
     _selectedSection = section;
-
-    if (_formTableView.form) {
-        [self updateDataFromTableView];
-    }
-
-    if (!_formTableView.form) {
-        [self valueChangedForElement:nil];
-    } else {
-        [self updateForm];
-    }
-}
-
-- (void)updateForm {
-    _formTableView.form = self.formData;
     [_formTableView reloadData];
 }
 
@@ -161,30 +142,6 @@
     _formTableView.layer.shadowOpacity = 1.0f;
     _formTableView.layer.shadowRadius = 2.5f;
     _formTableView.layer.shadowPath = [UIBezierPath bezierPathWithRect:_formTableView.bounds].CGPath;
-}
-
-- (NSArray *)currentElements {
-    return _form[_selectedSection][@"elements"];
-}
-
-- (void)updateDataFromTableView {
-    MRFormHelper *helper = [MRFormHelper helperWithSettings:nil delegate:self];
-    [helper updateValuesFromFormSection:_formTableView.form.sections[0] dictionary:_currentFormElements];
-}
-
-- (MRForm *)formData {
-    MRFormHelper *helper = [MRFormHelper helperWithSettings:nil delegate:self];
-
-    NSMutableArray *errors = [NSMutableArray array];
-    NSArray *elements = self.currentElements;
-
-    NSMutableDictionary *currentFormElements = [NSMutableDictionary dictionaryWithCapacity:elements.count];
-    [elements enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger idx, BOOL *stop) {
-        currentFormElements[dictionary[@"name"]] = dictionary;
-    }];
-    _currentFormElements = currentFormElements;
-
-    return [helper parseFormElements:elements sectionName: nil formErrors:nil errors:errors];
 }
 
 - (void)valueChangedForElement:(MRFormRowElement *)element {

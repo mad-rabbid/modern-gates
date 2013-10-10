@@ -1,26 +1,11 @@
 #import "MRFormPickerElement.h"
-#import "MRFormPickerSpacedParser.h"
 
 @implementation MRFormPickerElement
-
-@synthesize items = _items;
-@synthesize valueParser = _valueParser;
-
-@synthesize selectedIndices = _selectedIndices;
 
 - (id)init {
 	self = [super init];
     if (self) {
-        self.valueParser = [MRFormPickerSpacedParser new];
-    }
-    return self;
-}
-
-- (id)initWithItems:(NSArray *)items value:(NSString *)value {
-	self = [self init];
-    if (self) {
-        _items = items;
-		self.text = value;
+        self.selectedIndex = -1;
     }
     return self;
 }
@@ -29,10 +14,37 @@
     return @"MRFormPickerCell";
 }
 
+- (NSString *)labelForItemAtIndex:(NSInteger)index {
+    if (index < 0 || index >= self.items.count) {
+        return nil;
+    }
+    return self.items[index][@"label"];
+}
+
+- (NSString *)valueForItemAtIndex:(NSInteger)index {
+    if (index < 0 || index >= self.items.count) {
+        return nil;
+    }
+
+    NSString *result = self.items[index][@"value"];
+    if (!result) {
+        result = [self labelForItemAtIndex:index];
+    }
+    return result;
+}
+
 - (void)fetchValueIntoObject:(id)object {
     if (self.fetchKey) {
-        [object setValue:self.selectedIndices forKeyPath:self.fetchKey];
+        [object setValue:[self valueForItemAtIndex:self.selectedIndex] forKeyPath:self.fetchKey];
     }
 }
 
+- (void)updateValue:(NSString *)value {
+    for (NSInteger index = 0; index < self.items.count; index++) {
+        if ([[self valueForItemAtIndex:index] isEqualToString:value]) {
+            self.selectedIndex = index;
+            break;
+        }
+    }
+}
 @end

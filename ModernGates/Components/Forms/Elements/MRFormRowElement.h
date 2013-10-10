@@ -17,7 +17,7 @@
 @property (nonatomic, weak) id<MRFormElementDelegate> delegate;
 
 @property (nonatomic, copy) NSString *fetchKey;
-
+@property (nonatomic, copy) NSString *groupKey;
 @end
 
 

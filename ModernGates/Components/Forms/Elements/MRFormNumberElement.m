@@ -22,4 +22,8 @@
         [object setValue:self.number forKeyPath:self.fetchKey];
     }
 }
+
+- (void)updateValue:(NSString *)value {
+    self.number = [NSDecimalNumber decimalNumberWithString:value];
+}
 @end

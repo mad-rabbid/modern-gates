@@ -78,7 +78,7 @@
 
 - (void)fetchValueIntoObject:(id)object {
     for (MRFormRowElement *element in elements) {
-        [element fetchValueIntoObject:(object)];
+        [element fetchValueIntoObject:object];
     }
 }
 @end

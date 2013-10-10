@@ -1,6 +1,7 @@
 #import "MRForm.h"
 #import "MRFormSection.h"
 #import "MRFormRowElement.h"
+#import "MRFormLabelElement.h"
 
 
 @implementation MRForm {
@@ -46,4 +47,26 @@
     return nil;
 
 }
+
+- (void)enumerateElementsWithBlock:(BOOL (^)(MRFormSection *section, MRFormLabelElement *element))block {
+    BOOL stop = NO;
+    for (MRFormSection *section in sections) {
+        for (MRFormElement *element in section.elements) {
+            if ([element isKindOfClass:MRFormLabelElement.class]) {
+                MRFormLabelElement *current = (MRFormLabelElement *)element;
+                if (block) {
+                    stop = block(section, current);
+                    if (stop) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (stop) {
+            break;
+        }
+    }
+}
+
 @end

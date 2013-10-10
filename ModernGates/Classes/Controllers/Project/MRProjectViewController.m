@@ -3,14 +3,12 @@
 #import "MRFormTableView.h"
 #import "MRProject.h"
 #import "MRJSONHelper.h"
-#import "MRAppDelegate.h"
 #import "MRMainMenuCell.h"
 #import "MRProjectEngineHelper.h"
 #import "MRProjectsDao.h"
 #import "MRStoryboardLocator.h"
 #import "UIViewController+MRTitleView.h"
 #import "MRForm.h"
-#import "MRFormHelper.h"
 #import "MRFormRowElement.h"
 #import "MRProjectNewCalculationViewController.h"
 #import "UINavigationController+MRNavigationBar.h"
@@ -25,6 +23,8 @@
 #import "MRConstants.h"
 #import "MRScriptingService.h"
 #import "Toast+UIView.h"
+#import "MREngineFormHolder.h"
+#import "MRFormSection.h"
 
 #define kWaitViewTag 1024
 #define kWaitIndicatorTag 1025
@@ -56,7 +56,7 @@ enum MRSectionCalcRows {
 
     __strong MRProject *_project;
 
-    __strong NSArray *_form;
+    __strong MREngineFormHolder *_formHolder;
     __strong NSDictionary *_formErrors;
 
     __strong NSDictionary *_currentFormElements;
@@ -83,6 +83,10 @@ enum MRSectionCalcRows {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (MRForm *)form {
+    return _formHolder.form;
 }
 
 - (void)viewDidLoad {
@@ -133,15 +137,13 @@ enum MRSectionCalcRows {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
-    [self updateDataFromTableView];
-
     [self saveProject];
 }
 
 - (void)saveProject {
-    @try{
-        _project.data = [MRJSONHelper jsonDataFromObject:_form];
+    @try {
+        // TODO: save the current project
+        _project.data = [MRJSONHelper jsonDataFromObject:@{}];
         [MRProjectsDao.sharedInstance updateProject:_project];
     } @catch (NSException *exception) {
         MRLog(@"Exception: %@", exception);
@@ -149,19 +151,14 @@ enum MRSectionCalcRows {
 }
 
 - (BOOL)loadProjectForm {
-    //_settings = [_service formDictionary];
+    _formHolder = [[MREngineFormHolder alloc] initWithProjectType:_project.type];
+    _formHolder.delegate = self;
 
-    if (!_project.data) {
-        _form = [_settings[@"form"] mutableCopy];
-        if (_form.count) {
-            _project.data = [MRJSONHelper jsonDataFromObject:_form];
-            [self updateProject];
-        }
-    } else {
-        _form = [(NSArray *) [MRJSONHelper objectFromData:_project.data] mutableCopy];
+    if (_project.data) {
+        //TODO: load saved data
     }
 
-    if (!_form.count) {
+    if (!self.form) {
        [self performSelector:@selector(back) withObject:nil afterDelay:0];
        [self.view makeToast:NSLocalizedString(@"Невозможно загрузить справочник проекта", nil)];
        return NO;
@@ -194,7 +191,7 @@ enum MRSectionCalcRows {
         case kMRProjectSectionSettings:
             return kMRSectionSettingsRowsNumber;
         case kMRProjectSectionForm:
-            return _form.count;
+            return ((MRFormSection *)self.form.sections[_selectedSection]).elements.count;
         case kMRProjectSectionCalc:
             return kMRSectionCalcRowsNumber;
         default:
@@ -212,10 +209,9 @@ enum MRSectionCalcRows {
             break;
         }
         case kMRProjectSectionForm: {
-            NSDictionary *formSection = _form[indexPath.row];
-            NSString *iconName = formSection[@"icon"];
-            [cell setImageWithName:(iconName.length) ? [NSString stringWithFormat:@"icon-%@.png", iconName] : @"icon-complectation"];
-            cell.title = NSLocalizedString(formSection[@"label"], nil);
+            MRFormSection *section = self.form.sections[indexPath.row];
+            [cell setImageWithName:@"icon-complectation"];
+            cell.title = section.title;
             break;
         }
         default:
@@ -293,18 +289,9 @@ enum MRSectionCalcRows {
 }
 
 - (void)showProjectSection:(NSInteger)section {
-    [self updateNavigationTitle:_form[section][@"label"]];
+    [self updateNavigationTitle:[self.form.sections[section] title]];
     _selectedSection = section;
-
-    if (_formTableView.form) {
-        [self updateDataFromTableView];
-    }
-
-    if (!_formTableView.form) {
-        [self valueChangedForElement:nil];
-    } else {
-        [self updateForm];
-    }
+    [self updateForm];
 }
 
 - (void)updateProject {
@@ -312,7 +299,7 @@ enum MRSectionCalcRows {
 }
 
 - (void)updateForm {
-    _formTableView.form = self.formData;
+    _formTableView.form = self.currentForm;
     [_formTableView reloadData];
 }
 
@@ -325,44 +312,17 @@ enum MRSectionCalcRows {
     _formTableView.layer.shadowPath = [UIBezierPath bezierPathWithRect:_formTableView.bounds].CGPath;
 }
 
-- (NSString *)currentSectionName {
-    return _form[_selectedSection][@"name"];
-}
-
-- (NSArray *)currentElements {
-    return (NSArray *) _form[_selectedSection][@"elements"];
-}
-
-- (void)updateDataFromTableView {
-    MRFormHelper *helper = [MRFormHelper helperWithSettings:_settings delegate:self];
-    [helper updateValuesFromFormSection:_formTableView.form.sections[0] dictionary:_currentFormElements];
-}
-
-- (MRForm *)formData {
-    MRFormHelper *helper = [MRFormHelper helperWithSettings:_settings delegate:self];
-
-    NSMutableArray *errors = [NSMutableArray array];
-    NSArray *elements = self.currentElements;
-
-    NSMutableDictionary *currentFormElements = [NSMutableDictionary dictionaryWithCapacity:elements.count];
-    [elements enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger idx, BOOL *stop) {
-        NSString *key = dictionary[@"name"];
-        if (key) {
-            currentFormElements[key] = dictionary;
-        }
-    }];
-    _currentFormElements = currentFormElements;
-
-    return [helper parseFormElements:elements sectionName:self.currentSectionName formErrors:_formErrors errors:errors];
+- (MRForm *)currentForm {
+    MRForm *form = [MRForm new];
+    [form addSection:self.form.sections[_selectedSection]];
+    return form;
 }
 
 - (void)valueChangedForElement:(MRFormRowElement *)element {
     MRLog(@"Hurray! User was changed value for element %@", element.fetchKey);
-    [self updateDataFromTableView];
-    _form = nil;//[_service checkForm:_form];
 
+    //TODO update form
 
-    _formTableView.form = self.formData;
     [_formTableView reloadData];
 
     MRFormRowElement *newElement = [_formTableView.form elementWithKey:element.fetchKey];
@@ -377,10 +337,6 @@ enum MRSectionCalcRows {
 - (void)updateFormWithErrorMessages:(NSDictionary *)messages {
     _formErrors = messages;
     [self updateForm];
-}
-
-- (void)showPopup:(Class)clazz title:(NSString *)title initBlock:(void (^)(MRPopupViewController *))initBlock completionBlock:(void (^)(MRPopupViewController *))completionBlock {
-    return [self showPopup:clazz title:title initBlock:initBlock completionBlock:completionBlock storyboard:nil];
 }
 
 - (void)showPopup:(Class)clazz title:(NSString *)title initBlock:(void (^)(MRPopupViewController *))initBlock completionBlock:(void (^)(MRPopupViewController *))completionBlock storyboard:(NSString *)storyboardName {
@@ -408,7 +364,7 @@ enum MRSectionCalcRows {
     if ([controller isKindOfClass:MRProjectPopupViewController.class]) {
         MRProjectPopupViewController *projectPopupController = ((MRProjectPopupViewController *)controller);
         projectPopupController.project = _project;
-        projectPopupController.form = _form;
+        //projectPopupController.form = _form;
     }
 
     if (initBlock) {

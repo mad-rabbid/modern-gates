@@ -87,7 +87,6 @@
 		CA01F5E006F9E56806AC1D3B /* navbar-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FE856E77840EA8319CF2 /* navbar-dark@2x.png */; };
 		CA01F5F4B2B4BF97C55867AB /* MRProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FDED38C2694E0F215330 /* MRProjectViewController.m */; };
 		CA01F5FEAB9A1149AC8BE14C /* icon-accessories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F23C55D025056B57F423 /* icon-accessories@2x.png */; };
-		CA01F60FE331C4D779324215 /* MRFormHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F0C30BF1FEFDCC5E79E3 /* MRFormHelper.m */; };
 		CA01F61F0F29FCEA6810B58B /* icon-complectation.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FF102D95234D852FEC8E /* icon-complectation.png */; };
 		CA01F62CAC626041AF9A4948 /* MRFormElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBF654C8C238D01684E3 /* MRFormElement.m */; };
 		CA01F6539088D3A8421097DC /* ZoomMinusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FB0A43B0EB20ACCC7EAA /* ZoomMinusHighlighted@2x.png */; };
@@ -133,7 +132,6 @@
 		CA01F9FE4B06C51096432096 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F9A685DAE7ED744F3E9E /* menu@2x.png */; };
 		CA01FA01DB4DC81AC107D1CE /* MRProject.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F5B5C71B120B9C12186A /* MRProject.m */; };
 		CA01FA0C16B9F45DE31D2F9C /* icon-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FCE123B4B190A9A87FB7 /* icon-frame.png */; };
-		CA01FA33FFED9E9AFBBDEF4A /* customer-form.json in Resources */ = {isa = PBXBuildFile; fileRef = CA01FBFE106EB195599EDA87 /* customer-form.json */; };
 		CA01FA4A021EACA1C83085D7 /* icon-accessories.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FC72522AD7BCB251FEEE /* icon-accessories.png */; };
 		CA01FA50F53108175C7617E3 /* calculator-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F6671C328F2A78EFAFA0 /* calculator-icon.png */; };
 		CA01FA83191D95CB2B498B9B /* MRCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F9DD599398B3C77D8789 /* MRCustomerCell.m */; };
@@ -149,9 +147,9 @@
 		CA01FB28B7B5F7BF0F484E61 /* ZoomPlusHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F1F0F03E293EBE905103 /* ZoomPlusHighlighted.png */; };
 		CA01FB2F40DB96590A7CB2A7 /* MRCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FAB9B174BFB8811E86F1 /* MRCustomer.m */; };
 		CA01FB3154F3B83D0E267AA4 /* LocateMeHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F1549FF4E3535D5AAABC /* LocateMeHighlighted@2x.png */; };
-		CA01FB37D88F7978FE4108CA /* project-form.json in Resources */ = {isa = PBXBuildFile; fileRef = CA01F0300F8D8BC6E15474B2 /* project-form.json */; };
 		CA01FB3C1BB4B79E1B186C5C /* MRFormEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBBD017F03A64E138AA1 /* MRFormEditableCell.m */; };
 		CA01FB8A1FDE696434B2DC95 /* LocateMeHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F7CC593CC6070C7C8DBA /* LocateMeHighlighted.png */; };
+		CA01FBABAE282759D3918C38 /* MRFormHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F536ECA445B3E2A4CE53 /* MRFormHelper.m */; };
 		CA01FBAF3D44A54C3A864080 /* MRPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F1ED520241EE5B72BDE1 /* MRPreviewController.m */; };
 		CA01FBC31E0B383A9185AA93 /* MRJSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F03739705A478EED2657 /* MRJSONHelper.m */; };
 		CA01FBDCF74C6C03539D61FC /* MRFormTableViewBaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F4A40416C69197527113 /* MRFormTableViewBaseDelegate.m */; };
@@ -188,7 +186,6 @@
 		CA01FEA31B7A1DA61937E930 /* edit-background.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01F1E0A6CDDE4444CAF5B4 /* edit-background.png */; };
 		CA01FEA815945CBB2EA13FFE /* MRProjectCalculationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FDB05DD0F21AAAE66E53 /* MRProjectCalculationsViewController.m */; };
 		CA01FED3401F4199D2A9B19B /* MRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FBA85274D2937E289D8F /* MRLoginViewController.m */; };
-		CA01FEF433E8D1FFA8C86250 /* MRFormPickerSpacedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01F75145A81AAF10616506 /* MRFormPickerSpacedParser.m */; };
 		CA01FEFC8A05A8B7E65DF550 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CA01F4D93239FAD645CD3318 /* libz.dylib */; };
 		CA01FF118D3C5ED69F0A4DD4 /* UIViewController+MRTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = CA01FF87B583087D189FC6EA /* UIViewController+MRTitleView.m */; };
 		CA01FF1AFD92908DA9AF46D6 /* sidebar-icon-back.png in Resources */ = {isa = PBXBuildFile; fileRef = CA01FAA94110758854E27001 /* sidebar-icon-back.png */; };
@@ -210,7 +207,6 @@
 		7A373B6BD4A74077B3CA1F6E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA01F0201764F4B39D1FA23C /* MRCustomer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MRCustomer.storyboard; sourceTree = "<group>"; };
 		CA01F0252D46121B997AE603 /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRevealViewController.h; sourceTree = "<group>"; };
-		CA01F0300F8D8BC6E15474B2 /* project-form.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = "project-form.json"; sourceTree = "<group>"; };
 		CA01F03360BD0BA4E023EF9F /* MRSelectProjectTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRSelectProjectTypeViewController.h; sourceTree = "<group>"; };
 		CA01F03739705A478EED2657 /* MRJSONHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRJSONHelper.m; sourceTree = "<group>"; };
 		CA01F03B4FF1C9F9A4E502FC /* MRCustomersDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCustomersDao.m; sourceTree = "<group>"; };
@@ -221,7 +217,6 @@
 		CA01F0A8FE0B98A8E61AB1DF /* MRFormTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormTableView.m; sourceTree = "<group>"; };
 		CA01F0BD41BB6225F53DB749 /* ZoomPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZoomPlus.png; sourceTree = "<group>"; };
 		CA01F0C1D156D6FDA34662B5 /* igate-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "igate-icon@2x.png"; sourceTree = "<group>"; };
-		CA01F0C30BF1FEFDCC5E79E3 /* MRFormHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormHelper.m; sourceTree = "<group>"; };
 		CA01F0DAB5EDFEB5678E0140 /* NSAlert+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
 		CA01F0ECFE926A891DB11046 /* GHRevealViewController+FastCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHRevealViewController+FastCreation.m"; sourceTree = "<group>"; };
 		CA01F0F1F6875D212779818C /* ZoomMinus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZoomMinus@2x.png"; sourceTree = "<group>"; };
@@ -235,7 +230,6 @@
 		CA01F1712B71275F77A49D78 /* MRPhotoCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRPhotoCollectionCell.m; sourceTree = "<group>"; };
 		CA01F17A593023DBDB57F681 /* MRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRSettingsViewController.m; sourceTree = "<group>"; };
 		CA01F17D15AFAAA9A78A8D90 /* MRFormNumberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormNumberCell.m; sourceTree = "<group>"; };
-		CA01F19FC7432A286BAC65CE /* MRFormPickerParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormPickerParser.h; sourceTree = "<group>"; };
 		CA01F1A75BA6DB3FFB5C29BD /* MRProjectEngineHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProjectEngineHelper.h; sourceTree = "<group>"; };
 		CA01F1AE9DACBC27A552907B /* MRFormLabelInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormLabelInfoCell.m; sourceTree = "<group>"; };
 		CA01F1E0A6CDDE4444CAF5B4 /* edit-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-background.png"; sourceTree = "<group>"; };
@@ -290,6 +284,7 @@
 		CA01F4DAEDEF64E4BC2A41D5 /* MRMailService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRMailService.m; sourceTree = "<group>"; };
 		CA01F4F4A900AE80C9F64E99 /* MRMainMenuProjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRMainMenuProjectCell.m; sourceTree = "<group>"; };
 		CA01F50D07C196A9659350B0 /* igate-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "igate-icon.png"; sourceTree = "<group>"; };
+		CA01F536ECA445B3E2A4CE53 /* MRFormHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormHelper.m; sourceTree = "<group>"; };
 		CA01F53EDF9CFDD3274C10F2 /* GHSidebarSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSidebarSearchViewController.h; sourceTree = "<group>"; };
 		CA01F56A4B62AE25C53FCC8B /* MRCalculationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCalculationHelper.m; sourceTree = "<group>"; };
 		CA01F57CC91ADFBB4A018D27 /* MRCustomerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCustomerCell.h; sourceTree = "<group>"; };
@@ -300,6 +295,7 @@
 		CA01F5B3495D08723A35C9B8 /* ModernGatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModernGatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA01F5B5C71B120B9C12186A /* MRProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRProject.m; sourceTree = "<group>"; };
 		CA01F5BC4D73D85910727574 /* ModernGates-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ModernGates-Prefix.pch"; sourceTree = "<group>"; };
+		CA01F5DF54DAB1B3C1675D61 /* MRFormHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormHelper.h; sourceTree = "<group>"; };
 		CA01F5E2151888F9B3AD848C /* MRProjectNewCalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRProjectNewCalculationViewController.m; sourceTree = "<group>"; };
 		CA01F5F08EA702359F4F57D5 /* NSString+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
 		CA01F5F80C52A5D60CC7C5EF /* NSDate+RFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFC1123.h"; sourceTree = "<group>"; };
@@ -336,7 +332,6 @@
 		CA01F72A9B22D955FED6DF91 /* icon-complectation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-complectation@2x.png"; sourceTree = "<group>"; };
 		CA01F736D1CF13DFAB3435EE /* MRCalculatorBrains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCalculatorBrains.m; sourceTree = "<group>"; };
 		CA01F73BD155CF06EBE187F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CA01F75145A81AAF10616506 /* MRFormPickerSpacedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormPickerSpacedParser.m; sourceTree = "<group>"; };
 		CA01F752748EE86A245B5462 /* MRRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRRootViewController.m; sourceTree = "<group>"; };
 		CA01F77375A1866963568CA7 /* ZoomPlusHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZoomPlusHighlighted@2x.png"; sourceTree = "<group>"; };
 		CA01F7752B7D18547D1144B4 /* MRFormCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormCell.h; sourceTree = "<group>"; };
@@ -416,9 +411,7 @@
 		CA01FBF44E0B8C1A272E4A39 /* MRCalculationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCalculationCell.h; sourceTree = "<group>"; };
 		CA01FBF57A801E0B87432F78 /* LocateMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LocateMe.png; sourceTree = "<group>"; };
 		CA01FBF654C8C238D01684E3 /* MRFormElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormElement.m; sourceTree = "<group>"; };
-		CA01FBFE106EB195599EDA87 /* customer-form.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = "customer-form.json"; sourceTree = "<group>"; };
 		CA01FC077DA8BE61FC06173B /* MRMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRMenuController.m; sourceTree = "<group>"; };
-		CA01FC125F5F53F5F7F4AB21 /* MRFormPickerSpacedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormPickerSpacedParser.h; sourceTree = "<group>"; };
 		CA01FC17DB64BA319EF5A26B /* icon-design.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-design.png"; sourceTree = "<group>"; };
 		CA01FC2937C85011F868FF1A /* MRProjectStatusPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProjectStatusPopupViewController.h; sourceTree = "<group>"; };
 		CA01FC313EABC88A3571EED0 /* MRFormElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormElement.h; sourceTree = "<group>"; };
@@ -463,7 +456,6 @@
 		CA01FE4F7730F3C4FA6163AD /* MRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAppDelegate.h; sourceTree = "<group>"; };
 		CA01FE5B32C6978A0A89CB76 /* MRProjectPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProjectPhotosViewController.h; sourceTree = "<group>"; };
 		CA01FE741F0625A0BE313C25 /* MRProjectPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProjectPhotoDetailViewController.h; sourceTree = "<group>"; };
-		CA01FE7476B42E8325DD2A39 /* MRFormHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRFormHelper.h; sourceTree = "<group>"; };
 		CA01FE82DB866957B982FEA0 /* icon-frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-frame@2x.png"; sourceTree = "<group>"; };
 		CA01FE856E77840EA8319CF2 /* navbar-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar-dark@2x.png"; sourceTree = "<group>"; };
 		CA01FE9E13EF556B042D449C /* MRFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRFormatters.m; sourceTree = "<group>"; };
@@ -551,16 +543,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		CA01F0B21356C619DE8DC601 /* Parsers */ = {
-			isa = PBXGroup;
-			children = (
-				CA01F19FC7432A286BAC65CE /* MRFormPickerParser.h */,
-				CA01FC125F5F53F5F7F4AB21 /* MRFormPickerSpacedParser.h */,
-				CA01F75145A81AAF10616506 /* MRFormPickerSpacedParser.m */,
-			);
-			path = Parsers;
-			sourceTree = "<group>";
-		};
 		CA01F177D9E02DB55FBCF3D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,7 +567,6 @@
 			children = (
 				CA01FFA9C771F47389B16D0D /* Form */,
 				CA01FEE0A7FCF80EA9997849 /* Cells */,
-				CA01F0B21356C619DE8DC601 /* Parsers */,
 				CA01F8ACB8AFDB95DDB8DDC9 /* Elements */,
 				CA01F36E0E4D451A6FA82316 /* Calculator */,
 			);
@@ -671,8 +652,6 @@
 		CA01F4625136247A1481ABF1 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
-				CA01F0300F8D8BC6E15474B2 /* project-form.json */,
-				CA01FBFE106EB195599EDA87 /* customer-form.json */,
 				CA01F4C54FDAB7573242172F /* settings-form.json */,
 			);
 			path = Forms;
@@ -1241,8 +1220,6 @@
 		CA01FFBC25FC41760CC6036F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				CA01FE7476B42E8325DD2A39 /* MRFormHelper.h */,
-				CA01F0C30BF1FEFDCC5E79E3 /* MRFormHelper.m */,
 				CA01FEE7C3609C96D674D510 /* MRJSONHelper.h */,
 				CA01F03739705A478EED2657 /* MRJSONHelper.m */,
 				CA01F9A77C7553964E82A3C6 /* MRPriceHelper.h */,
@@ -1251,6 +1228,8 @@
 				CA01F56A4B62AE25C53FCC8B /* MRCalculationHelper.m */,
 				CA01F1A75BA6DB3FFB5C29BD /* MRProjectEngineHelper.h */,
 				CA01F37C506409442857DC4E /* MRProjectEngineHelper.m */,
+				CA01F5DF54DAB1B3C1675D61 /* MRFormHelper.h */,
+				CA01F536ECA445B3E2A4CE53 /* MRFormHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1382,8 +1361,6 @@
 			files = (
 				CA01F9DE1D3BB2800195791F /* InfoPlist.strings in Resources */,
 				CA01F87776278A1AE2A8AE52 /* Images.xcassets in Resources */,
-				CA01FB37D88F7978FE4108CA /* project-form.json in Resources */,
-				CA01FA33FFED9E9AFBBDEF4A /* customer-form.json in Resources */,
 				CA01FD8372D695749EC9AEFB /* settings-form.json in Resources */,
 				CA01F0D36A503BE31D33B916 /* LocateMe.png in Resources */,
 				CA01F537E25A84E38E4F251C /* ZoomPlus.png in Resources */,
@@ -1536,7 +1513,6 @@
 				CA01F262B46E49B1CDF05B28 /* MRCalculation.m in Sources */,
 				CA01F6D6E6D2CB06A970966E /* MRFormatters.m in Sources */,
 				CA01F0792536DA141C974A92 /* MRMainMenuHeader.m in Sources */,
-				CA01F60FE331C4D779324215 /* MRFormHelper.m in Sources */,
 				CA01FBC31E0B383A9185AA93 /* MRJSONHelper.m in Sources */,
 				CA01FCF0D045D5B89318417D /* MRPriceHelper.m in Sources */,
 				CA01F3B96AC63DF0070E1CB6 /* MRCalculationHelper.m in Sources */,
@@ -1580,7 +1556,6 @@
 				CA01FB3C1BB4B79E1B186C5C /* MRFormEditableCell.m in Sources */,
 				CA01F561D4AD949D371A2898 /* MRFormLabelInfoCell.m in Sources */,
 				CA01F75A5BA9D254D250D50E /* MRFormTextFieldCell.m in Sources */,
-				CA01FEF433E8D1FFA8C86250 /* MRFormPickerSpacedParser.m in Sources */,
 				CA01F62CAC626041AF9A4948 /* MRFormElement.m in Sources */,
 				CA01FDDCD02C7A279BD612C1 /* MRFormRowElement.m in Sources */,
 				CA01F393EE2793A2D16793D0 /* MRFormLabelElement.m in Sources */,
@@ -1613,6 +1588,7 @@
 				CA01FF118D3C5ED69F0A4DD4 /* UIViewController+MRTitleView.m in Sources */,
 				CA01F005435417A00126F0DF /* MRDataModel.xcdatamodeld in Sources */,
 				CA01FC51D45846AEB02C6DCD /* MRSettingsViewController.m in Sources */,
+				CA01FBABAE282759D3918C38 /* MRFormHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
