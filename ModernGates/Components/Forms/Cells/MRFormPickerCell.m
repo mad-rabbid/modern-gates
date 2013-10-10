@@ -65,7 +65,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSLog(@"Index: %d", row);
-    return [self.pickerElement.items[row] description];
+    return [self.pickerElement labelForItemAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

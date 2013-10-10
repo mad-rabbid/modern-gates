@@ -24,6 +24,7 @@
 }
 
 - (void)updateValue:(NSString *)value {
-    self.number = [NSDecimalNumber decimalNumberWithString:value];
+    NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString:value];
+    self.number = ![NSDecimalNumber.notANumber isEqualToNumber:number] ? number : nil;
 }
 @end

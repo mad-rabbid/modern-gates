@@ -29,7 +29,7 @@
 }
 
 - (void)deleteCalculationWithDate:(NSDate *)date {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
         MRCalculation *calculation = [MRCalculation findFirstWithPredicate:predicate inContext:context];
         [calculation deleteInContext:context];
@@ -38,7 +38,7 @@
 
 - (MRCalculation *)createCalculationForProject:(MRProject *)project {
     __block MRCalculation *calculation = nil;
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         calculation = [MRCalculation createInContext:context];
         calculation.date = [NSDate new];
         calculation.project = project;
@@ -48,7 +48,7 @@
 }
 
 - (void)updateCalculation:(MRCalculation *)dto {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
 
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", dto.date];
         MRCalculation *calculation = [MRCalculation findFirstWithPredicate:predicate inContext:context];

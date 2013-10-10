@@ -22,7 +22,7 @@
 }
 
 - (void)deleteCustomerWithDate:(NSDate *)date {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"creationDate == %@", date];
         MRCustomer *customer = [MRCustomer findFirstWithPredicate:predicate inContext:context];
         [customer deleteInContext:context];
@@ -32,7 +32,7 @@
 - (MRCustomer *)createCustomer {
     __block MRCustomer *customer = nil;
 
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         customer = [MRCustomer createInContext:context];
         customer.creationDate = [NSDate new];
         customer.title = NSLocalizedString(@"Новый заказчик", nil);
@@ -49,7 +49,7 @@
 }
 
 - (void)updateCustomer:(MRCustomer *)dto {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
 
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"creationDate == %@", dto.creationDate];
         MRCustomer *customer = [MRCustomer findFirstWithPredicate:predicate inContext:context];

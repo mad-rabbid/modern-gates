@@ -1,8 +1,6 @@
 #import "MRCalculationCell.h"
 #import "MRCalculation.h"
 #import "MRJSONHelper.h"
-#import "MRCalculationHelper.h"
-#import "MRPriceHelper.h"
 #import "MRFormatters.h"
 
 

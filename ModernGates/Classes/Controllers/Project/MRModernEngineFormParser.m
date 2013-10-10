@@ -37,14 +37,16 @@
     for (NSDictionary *dictionary in self.source[@"inputBlocks"]) {
         NSString *sectionTitle = dictionary[@"groupHead"];
         if (sectionTitle.length) {
+            if (self.picker) {
+                [self appendPickerToSection:currentSection];
+            }
             [self addSection:currentSection toForm:self.form];
             currentSection = [MRFormSection new];
             currentSection.title = sectionTitle;
         } else {
-            if (!currentSection) {
-                currentSection = [MRFormSection new];
+            if (currentSection) {
+                [self parseElementWithDictionary:dictionary section:currentSection];
             }
-            [self parseElementWithDictionary:dictionary section:currentSection];
         }
 
     }
@@ -58,6 +60,16 @@
     }
 }
 
+- (void)appendPickerToSection:(MRFormSection *)section {
+    self.picker.items = self.items;
+    if (section) {
+        [section addElement:self.picker];
+    }
+    self.items = nil;
+    self.picker = nil;
+
+}
+
 - (void)parseElementWithDictionary:(NSDictionary *)dictionary section:(MRFormSection *)section {
     NSString *type = dictionary[@"type"];
     if (!type.length) {
@@ -65,20 +77,19 @@
         return;
     }
 
-    if (self.picker && (![type isEqualToString:@"radio"] || ![dictionary[@"groupName"] isEqual:self.picker.fetchKey])) {
-        [section addElement:self.picker];
-        self.picker = nil;
+    if (self.picker && (![type isEqualToString:@"radio"] || ![dictionary[@"group"] isEqual:self.picker.fetchKey])) {
+        [self appendPickerToSection:section];
     }
 
     MRFormLabelElement *row = nil;
     if ([type isEqualToString:@"number"]) {
-        row = [self numberElementWithDictionary:dictionary];
+        row = [self editableElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"radio"]) {
         [self parsePickerElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"checkbox"]) {
         row = [self booleanElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"text"]) {
-        row = [self editableElementWithDictionary:dictionary];
+        row = [self numberElementWithDictionary:dictionary];
     } else if ([type isEqualToString:@"info"]) {
         row = [self labelElementWithDictionary:dictionary];
     } else {
@@ -117,7 +128,7 @@
     if (!self.picker) {
         self.picker = [[MRFormPickerElement alloc] init];
         [self setupElement:self.picker source:source delegate:_delegate];
-        self.picker.label = source[@"groupName"] ?: NSLocalizedString(@"Not set", nil);
+        self.picker.label = source[@"groupName"];
         self.picker.fetchKey = source[@"group"];
         self.picker.groupKey = self.picker.fetchKey;
         self.items = [NSMutableArray array];
@@ -136,7 +147,10 @@
         item[@"comment"] = source[@"commentHover"];
     }
 
-    item[@"expressions"] = [source[@"expressions"] copy];
+    id expressions = source[@"expressions"];
+    if (expressions)  {
+        item[@"expressions"] = [expressions copy];
+    }
     [self.items addObject:item];
 }
 
@@ -162,7 +176,7 @@
 }
 
 - (void)setupElement:(MRFormLabelElement *)element source:(NSDictionary *)source delegate:(id <MRFormElementDelegate>)delegate {
-    element.label = source[@"name"] ? source[@"name"] : NSLocalizedString(@"Not set", nil);
+    element.label = source[@"name"];
 
     element.label = NSLocalizedString(element.label, nil);
 
@@ -170,11 +184,14 @@
     element.groupKey = source[@"group"];
 
     element.delegate = delegate;
-    element.disabled = ![[source[@"activity"] lowercaseString] isEqualToString:@"on"];
+    element.disabled = ![[source[@"activity"] lowercaseString] isEqualToString:@"on"] || [source[@"type"] isEqualToString:@"number"];
     element.hidden = [self parseBoolean:source[@"hidden"]];
 
     if (![source[@"type"] isEqualToString:@"radio"]) {
-        element.expressions = [source[@"expressions"] copy];
+        id expressions = source[@"expressions"];
+        if (expressions)  {
+            element.expressions = [expressions copy];
+        }
     }
 }
 

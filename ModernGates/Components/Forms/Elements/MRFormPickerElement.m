@@ -14,6 +14,13 @@
     return @"MRFormPickerCell";
 }
 
+- (void)setItems:(NSArray *)items {
+    _items = items;
+    if (_items.count) {
+        self.selectedIndex = 0;
+    }
+}
+
 - (NSString *)labelForItemAtIndex:(NSInteger)index {
     if (index < 0 || index >= self.items.count) {
         return nil;

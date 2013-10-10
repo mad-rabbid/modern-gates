@@ -9,6 +9,10 @@
     if (self.navigationController.viewControllers.count > 1) {
         self.navigationItem.leftBarButtonItem = self.backBarButtonItem;
     }
+
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 
 - (UIBarButtonItem *)menuBarButtonItem {

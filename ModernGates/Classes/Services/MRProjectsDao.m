@@ -72,7 +72,7 @@
 }
 
 - (void)deleteProjectWithDate:(NSDate *)date {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
         MRProject *project = [MRProject findFirstWithPredicate:predicate inContext:context];
         [project deleteInContext:context];
@@ -81,7 +81,7 @@
 
 - (NSDate *)createProjectWithType:(NSString *)type {
     NSDate *date = [NSDate new];
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         MRProject *project = [MRProject createInContext:context];
         project.orderTitle = type;
         project.date = date;
@@ -93,7 +93,7 @@
 }
 
 - (void)updateProject:(MRProject *)dto {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", dto.date];
         MRProject *project = [MRProject findFirstWithPredicate:predicate inContext:context];
         if (project) {

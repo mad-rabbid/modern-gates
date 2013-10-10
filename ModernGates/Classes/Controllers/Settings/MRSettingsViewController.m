@@ -53,11 +53,13 @@
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     [_form enumerateElementsWithBlock:^BOOL(MRFormSection *section, MRFormLabelElement *element) {
         NSString *value = [settings objectForKey:element.fetchKey];
-        if (![value isKindOfClass:NSString.class]) {
-            value = _defaultValues[element.fetchKey] ?: @"";
+        if (![value isKindOfClass:NSString.class] || !value.length) {
+            value = _defaultValues[element.fetchKey];
+            if (value) {
+                [settings setObject:value forKey:element.fetchKey];
+                [settings synchronize];
+            }
         }
-        [settings setObject:value forKey:element.fetchKey];
-        [settings synchronize];
 
         [element updateValue:value];
         return NO;
@@ -72,8 +74,9 @@
     _form = [formHelper parse];
     _formTableView.form =_form;
 
-    [self setupFromSettings];
     [self updateDefaultValuesWithSections:data];
+    [self setupFromSettings];
+
 
     [_projectTableView reloadData];
     [_projectTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection: _selectedSection]
@@ -83,6 +86,7 @@
 }
 
 - (void)updateDefaultValuesWithSections:(NSArray *)sections {
+    _defaultValues = [NSMutableDictionary dictionary];
     for (NSDictionary *section in sections) {
         for (NSDictionary *element in section[@"elements"]) {
             NSString *value = element[@"value"] ? [element[@"value"] description] : nil;

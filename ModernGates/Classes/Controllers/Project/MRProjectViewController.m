@@ -191,7 +191,7 @@ enum MRSectionCalcRows {
         case kMRProjectSectionSettings:
             return kMRSectionSettingsRowsNumber;
         case kMRProjectSectionForm:
-            return ((MRFormSection *)self.form.sections[_selectedSection]).elements.count;
+            return self.form.sections.count;
         case kMRProjectSectionCalc:
             return kMRSectionCalcRowsNumber;
         default:

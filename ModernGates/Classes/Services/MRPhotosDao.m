@@ -26,7 +26,7 @@
 }
 
 - (void)deletePhotoWithName:(NSString *)name {
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
         MRPhoto *photo = [MRPhoto findFirstWithPredicate:predicate inContext:context];
         [photo deleteInContext:context];
@@ -35,7 +35,7 @@
 
 - (MRPhoto *)createPhotoWithName:(NSString *)name project:(MRProject *)sourceProject {
     __block MRPhoto *photo = nil;
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *context) {
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *context) {
         MRProject *project = [[MRProjectsDao sharedInstance] projectWithDate:sourceProject.date];
 
         photo = [MRPhoto createInContext:context];
