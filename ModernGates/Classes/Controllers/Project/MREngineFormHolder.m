@@ -6,6 +6,7 @@
 #import "MRFormLabelElement.h"
 #import "MRFormPickerElement.h"
 #import "MRFormBooleanElement.h"
+#import "MRFormNumberElement.h"
 
 static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
 
@@ -73,23 +74,91 @@ static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
             NSString *key = [NSString stringWithFormat:@"$%@$", element.fetchKey];
             if ([element isKindOfClass:MRFormEditableElement.class]) {
                 MRFormEditableElement *editableElement = (MRFormEditableElement *)element;
-                values[key] = @(editableElement.text.length > 0);
+                values[key] = [self elementValue:editableElement];
             } else if ([element isKindOfClass:MRFormBooleanElement.class]) {
                 MRFormBooleanElement *booleanElement = (MRFormBooleanElement *)element;
                 values[key] = @(booleanElement.isOn);
             }
 
-            [script appendFormat:kMRVariableFormat, key, values[key]];
+            [script appendFormat:kMRVariableFormat, key, [self scriptValueWithValue:values[key]]];
         }
-
 
         return NO;
     }];
 
-    [script appendFormat:@"\nvar expressions = %@;", [expressions JSONString]];
+    [script appendFormat:@"\nvar expressions = %@;", [self prepareExpresstionsScriptPart:expressions]];
     MRLog(@"Values: %@", values);
     MRLog(@"Expressions: %@", expressions);
     MRLog(@"Script: %@", script);
+
+    [self executeScript:script];
 }
 
+- (NSString *)prepareExpresstionsScriptPart:(NSDictionary *)expressions {
+    NSMutableString *builder = [NSMutableString string];
+    [builder appendString:@"{\n"];
+    [expressions enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *list, BOOL *stop) {
+        if (builder.length > 2) {
+            [builder appendString:@",\n"];
+        }
+
+        [builder appendFormat:@"\t\"%@\" : [\n", key];
+
+        __block BOOL isFirst = YES;
+        [list enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger idx, BOOL *stop1) {
+            if (!isFirst) {
+                [builder appendString:@"\t\t,\n"];
+            } else {
+                isFirst = NO;
+            }
+
+            NSMutableString *internalBuilder = [NSMutableString string];
+            [internalBuilder appendString:@"\t\t{\n"];
+            [self appendParameter:dictionary[@"text"] label:@"expression" builder:internalBuilder];
+            [self appendParameter:dictionary[@"newval"] label:@"newValue" builder:internalBuilder];
+            [internalBuilder appendString:@"\n\t\t}\n"];
+            [builder appendString:internalBuilder];
+        }];
+        [builder appendString:@"\t]"];
+    }];
+    [builder appendString:@"}"];
+    return builder;
+}
+
+- (void)appendParameter:(NSString *)parameter label:(NSString *)label builder:(NSMutableString *)builder {
+    if (parameter.length && ![parameter isEqualToString:@"select"]) {
+        if (builder.length > 4) {
+            [builder appendString:@",\n"];
+        }
+        [builder appendFormat:@"\t\t\t\"%@\" : %@", label, parameter];
+    }
+}
+
+- (id)elementValue:(MRFormEditableElement *)element {
+    id value;
+    if ([element isKindOfClass:MRFormNumberElement.class]) {
+        value = element.text ? [NSDecimalNumber decimalNumberWithString:element.text] : @(0);
+    } else {
+        value = element.text ?: @"";
+    }
+    return value;
+}
+
+- (NSString *)scriptValueWithValue:(id)value {
+    return [value isKindOfClass:NSNumber.class] ? value : [NSString stringWithFormat:@"'%@'", value];
+}
+
+- (void)executeScript:(NSString *)script {
+    static NSString *template = @"(function() {\n"
+                "%@\n"
+                "return JSON.stringify(expressions);"
+            "})();\n";
+
+    NSString *data = [NSString stringWithFormat:template, script];
+
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:data];
+    NSLog(@"Result: %@", result);
+
+}
 @end
