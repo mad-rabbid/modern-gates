@@ -149,7 +149,7 @@
 
     id expressions = source[@"expressions"];
     if (expressions)  {
-        item[@"expressions"] = [expressions copy];
+        item[@"expressions"] = [self prepareExpressions:expressions];
     }
     [self.items addObject:item];
 }
@@ -190,9 +190,30 @@
     if (![source[@"type"] isEqualToString:@"radio"]) {
         id expressions = source[@"expressions"];
         if (expressions)  {
-            element.expressions = [expressions copy];
+            element.expressions = [self prepareExpressions:expressions];
         }
     }
 }
 
+- (NSArray *)prepareExpressions:(NSArray *)source {
+    NSMutableArray *result = [source mutableCopy];
+
+    for (NSInteger index = 0; index < result.count; index++) {
+        NSMutableDictionary *dictionary = [result[index] mutableCopy];
+
+        [self prepareExpressionWithName:@"text" inDictionary:dictionary];
+        [self prepareExpressionWithName:@"newval" inDictionary:dictionary];
+
+        result[index] = dictionary;
+    }
+
+    return [NSMutableArray arrayWithArray:result];
+}
+
+- (void)prepareExpressionWithName:(NSString *)name inDictionary:(NSMutableDictionary *)dictionary {
+    NSString *expression = dictionary[name];
+    if (expression) {
+        dictionary[name] = [expression stringByReplacingOccurrencesOfString:@"#" withString:@"$"];
+    }
+}
 @end

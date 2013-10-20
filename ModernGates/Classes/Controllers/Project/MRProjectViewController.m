@@ -59,9 +59,6 @@ enum MRSectionCalcRows {
     __strong MREngineFormHolder *_formHolder;
     __strong NSDictionary *_formErrors;
 
-    __strong NSDictionary *_currentFormElements;
-    __strong NSDictionary *_settings;
-
     __strong MRScriptingService *_service;
 
     __strong NSDictionary *_titles;
@@ -153,6 +150,8 @@ enum MRSectionCalcRows {
 - (BOOL)loadProjectForm {
     _formHolder = [[MREngineFormHolder alloc] initWithProjectType:_project.type];
     _formHolder.delegate = self;
+
+    [_formHolder template];
 
     if (_project.data) {
         //TODO: load saved data
@@ -264,12 +263,11 @@ enum MRSectionCalcRows {
 
     switch (row) {
         case kMRSectionCalcRowCalculations: {
-            __block MRProjectViewController *myself = self;
+            __weak MRProjectViewController *myself = self;
             [self showPopup:MRProjectCalculationsViewController.class title:@"Расчеты" initBlock:^(MRPopupViewController *controller) {
                 MRProjectCalculationsViewController *calcController = (MRProjectCalculationsViewController *)controller;
                 calcController.messagesBlock = ^(NSDictionary *messages) {
                     [myself updateFormWithErrorMessages:messages];
-                    myself = nil;
                 };
             } completionBlock:nil storyboard:@"MRCalculations"];
             break;
