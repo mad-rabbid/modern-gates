@@ -61,7 +61,9 @@ static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
                 values[key] = @(idx == pickerElement.selectedIndex);
 
                 if (item[@"expressions"]) {
-                    expressions[item[@"value"]] = item[@"expressions"];
+                    NSMutableDictionary
+                    expressions[item[@"value"]] = ;
+                    expressions
                 }
 
                 [script appendFormat:kMRVariableFormat, key, values[key]];
@@ -115,7 +117,12 @@ static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
             NSMutableString *internalBuilder = [NSMutableString string];
             [internalBuilder appendString:@"\t\t{\n"];
             [self appendParameter:dictionary[@"text"] label:@"expression" builder:internalBuilder];
-            [self appendParameter:dictionary[@"newval"] label:@"newValue" builder:internalBuilder];
+            if ([dictionary[@"newval"] isEqualToString:@"select"]) {
+                [self appendParameter:@"select" label:@"action" builder:internalBuilder];
+            } else {
+                [self appendParameter:dictionary[@"newval"] label:@"newValue" builder:internalBuilder];
+                [self appendParameter:dictionary[@"goal"] label:@"action" builder:internalBuilder];
+            }
             [internalBuilder appendString:@"\n\t\t}\n"];
             [builder appendString:internalBuilder];
         }];
@@ -126,9 +133,13 @@ static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
 }
 
 - (void)appendParameter:(NSString *)parameter label:(NSString *)label builder:(NSMutableString *)builder {
-    if (parameter.length && ![parameter isEqualToString:@"select"]) {
+    if (parameter.length /*&& ![parameter isEqualToString:@"select"]*/) {
         if (builder.length > 4) {
             [builder appendString:@",\n"];
+        }
+
+        if ([label isEqualToString:@"action"]) {
+            parameter = [NSString stringWithFormat:@"\"%@\"", parameter];
         }
         [builder appendFormat:@"\t\t\t\"%@\" : %@", label, parameter];
     }
@@ -159,6 +170,41 @@ static NSString *const kMRVariableFormat = @"var %@ = %@;\n";
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString *result = [webView stringByEvaluatingJavaScriptFromString:data];
     NSLog(@"Result: %@", result);
+
+}
+
+- (void)updateFormWithDictionary:(NSDictionary *)dictionary {
+
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *expressions, BOOL *stop) {
+        MRFormLabelElement *element = (MRFormLabelElement *)[self.form elementWithKey:key];
+        if (!element) {
+            return;
+        }
+
+        for (NSDictionary *current in expressions) {
+            NSNumber *expression = current[@"expression"];
+            NSNumber *newValue = current[@"newValue"];
+            NSString *action = current[@"action"];
+
+            if ([action isEqualToString:@"acitvityOn"]) {
+                if ([expression floatValue]) {
+                    element.disabled = NO;
+                }
+            } else if ([action isEqualToString:@"activityOff"]) {
+                if ([expression floatValue]) {
+                    element.disabled = YES;
+                }
+            } else if ([action isEqualToString:@"value"]) {
+                [element updateValue:newValue ? [newValue description] : @""];
+            } else if ([action isEqualToString:@"select"]) {
+                if ([expression floatValue] && [element isKindOfClass:MRFormPickerElement.class]) {
+
+                }
+            }
+            NSDecimalNumber.zero
+        }
+
+    }];
 
 }
 @end
